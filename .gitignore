@@ -1,0 +1,37 @@
+# Python environments and caches
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+
+# ROS generated files
+ros_ws/build/
+ros_ws/install/
+ros_ws/log/
+
+# Training data, runs, checkpoints and generated media
+datasets/
+runs/
+models/*.pt
+models/*.onnx
+*.bag
+*.db3
+*.mcap
+*.mp4
+*.avi
+
+# Machine-specific paths, credentials and diagnostics
+.env
+.env.*
+*.local.*
+*.pem
+*.key
+reports/raw/
+
+# OS/editor state
+.DS_Store
+Thumbs.db
+.idea/
+.superpowers/

@@ -1,0 +1,13 @@
+{
+  "python": "3.12.13",
+  "torch": "2.14.1+cu126",
+  "torchvision": "0.29.1+cu126",
+  "opencv": "5.0.0",
+  "ultralytics": "8.4.183",
+  "cuda_runtime": "12.6",
+  "cuda_available": true,
+  "gpu": "NVIDIA GeForce RTX 4060 Laptop GPU",
+  "matmul_backward": "passed",
+  "yolo11n_architecture_forward_416": "passed",
+  "trained_model": false
+}

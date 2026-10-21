@@ -1,6 +1,6 @@
 # Görsel Platforma Hizalanan Drone — 15 Günlük Uygulama Planı
 
-> **Uygulayıcı için:** Bu belgeyi gün gün, sırayla uygula. Uygulama kodunu kullanıcı ve asistan birlikte, adım adım yazacak; asistan kullanıcı adına uygulamayı bağımsız tamamlamayacak. İşaret kutuları ilerlemeyi takip etmek içindir. Gün 1 temel ortam ve Gün 2 uçuş kontrolleri tamamlandı; tam vendor commit kimliklerinin kaydı bekliyor. Gerçekleşen işler ve kanıtları [ilerleme kaydındadır](progress.md).
+> **Uygulayıcı için:** Bu belgeyi gün gün, sırayla uygula. Uygulama kodunu kullanıcı ve asistan birlikte, adım adım yazacak; asistan kullanıcı adına uygulamayı bağımsız tamamlamayacak. İşaret kutuları ilerlemeyi takip etmek içindir. Gün 1 temel ortam ve Gün 2 uçuş/sürüm kayıtları tamamlandı. Gerçekleşen işler ve kanıtları [ilerleme kaydındadır](progress.md).
 
 **Mevcut kurulum:** Uygulama reposu Ubuntu'da `~/projects/aeroalign`; planın sonraki bölümlerindeki `~/projects/drone_alignment` başlangıç yer tutucusudur, uygularken gerçek repo yolunu kullan. Bu bilgisayarda Gazebo, ROS Jazzy vendor paketleriyle kurulu ve Ogre ile çalışıyor. Mevcut kurulumun yeniden başlatılması için [Gün 2'deki doğrulanan komutları](day-02.md) kullan.
 
@@ -451,7 +451,7 @@ py -3.12 -m venv .venv
 
 **Bağımlılık:** Gün 1'de Gazebo çalışıyor.
 
-**21 Ekim uygulama notu:** Uçuş kontrolleri geçti. Jazzy vendor kurulumu, Ogre dünya kopyası, FRAME_CLASS düzeltmesi ve yeniden başlatma adımlarının ayrıntıları [Gün 2 kaydında](day-02.md). Tam kaynak commit kimlikleri hâlâ alınacak.
+**21 Ekim uygulama notu:** Uçuş kontrolleri geçti. Jazzy vendor kurulumu, Ogre dünya kopyası, FRAME_CLASS düzeltmesi, tam kaynak commit kimlikleri ve yeniden başlatma adımlarının ayrıntıları [Gün 2 kaydında](day-02.md).
 
 ### Adımlar
 
@@ -465,7 +465,7 @@ cd ardupilot
 Tools/environment_install/install-prereqs-ubuntu.sh -y
 ```
 
-- [ ] [Resmî Linux kurulumunun](https://ardupilot.org/dev/docs/building-setup-linux.html) istediği profil/ortam adımlarını tamamla; yeni terminal aç. İlk başarılı sürümün commit kimliğini `git rev-parse HEAD` ile kaydet. Plan boyunca her gün `git pull` yapma.
+- [x] [Resmî Linux kurulumunun](https://ardupilot.org/dev/docs/building-setup-linux.html) istediği profil/ortam adımlarını tamamla; yeni terminal aç. İlk başarılı sürümün commit kimliğini `git rev-parse HEAD` ile kaydet. Plan boyunca her gün `git pull` yapma.
 - [x] Güncel [ArduPilot Gazebo eklentisini](https://github.com/ArduPilot/ardupilot_gazebo) ayrı vendor klasörüne klonla; Harmonic bağımlılıklarını kurup derle. Bu bilgisayarda `libgz-sim8-dev` yerine mevcut ROS vendor kütüphaneleriyle derleme doğrulandı. `GZ_VERSION=harmonic`, eklenti ve model arama yolları [Gün 2'de](day-02.md) yazılı.
 - [x] Gazebo terminalinde Ogre için uyarlanmış Iris dünyasını başlat; önce Gün 2'deki export ayarlarını yükle:
 
@@ -494,7 +494,7 @@ takeoff 5
 
 - [x] Drone'un yükselip durduğunu ve Mission Planner telemetrisinin aynı drone'u gösterdiğini doğrula.
 - [x] MAVProxy'den `mode land` ile simüle uçuşu bitir. Mission Planner üzerinden kalkış/iniş de kullanıcı tarafından doğrulandı. Sonraki arm öncesi Guided modunu Set Mode ile uygula. `FRAME_CLASS=0` hatası sınıfı `1` yapıp yeniden başlatarak çözüldü; arming denetimleri topluca kapatılmadı.
-- [ ] Çalışan komutları, commit kimliklerini ve ağ adreslerini `reports/environment.md` içine kaydet.
+- [x] Çalışan komutlar ve tam commit kimlikleri `docs/day-02.md` ile `reports/environment.md` içinde; makineye özgü ağ adresi Git'e girmeyen `reports/paths.local.md` içinde kayıtlı.
 
 ### Portların görevi
 

@@ -70,10 +70,10 @@ Day 1 basic environment gate passed. Camera output and ROS camera bridging remai
 - [x] Takeoff, hover observation and landing sequence completed by the developer.
 - [x] Mission Planner commands and normal arming verified.
 - [x] Restart commands and corrections recorded in [Day 2](day-02.md).
-- [ ] Capture full source commit IDs for ArduPilot and `ardupilot_gazebo`; the runtime short SHA is the only source revision observed so far.
+- [x] Full source IDs supplied by the developer from Ubuntu: ArduPilot `5aa0721611bdd66ded2285873c091b5ef7ac69e7`, `ardupilot_gazebo` `082a0fe231f6e63bc8d1598f1cba461d9e2ea7f5`. The ArduPilot ID matches the runtime short SHA observed in Mission Planner.
 
 Flight results are manual observations, not recorded accuracy, timing or stability measurements. No camera-to-ROS stream, trained detector, alignment controller or application node has been validated. Application code remains for the developer and assistant to write together.
 
 ### Next
 
-Record the two source revisions, then start Day 3 with the downward-facing camera and ROS image bridge. Keep the ArduPilot Python environment separate from the future ROS/perception environment.
+Day 2 is complete. Start Day 3 with the downward-facing camera and ROS image bridge when the developer is ready. Keep the ArduPilot Python environment separate from the future ROS/perception environment.

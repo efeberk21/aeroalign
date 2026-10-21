@@ -13,7 +13,7 @@ Day 1 environment checks and Day 2 simulation flight checks have passed. The dev
 | Training | Windows, Python 3.12, RTX 4060 | CUDA, backward pass and YOLO11n architecture forward verified |
 | ROS 2 | Ubuntu 24.04 VM, Jazzy | `rclpy`, `cv_bridge`, `ros_gz_bridge`, colcon and image viewer availability confirmed |
 | Simulation | Gazebo Harmonic 8.15.0, ROS vendor packages | Iris flight works with Ogre selected for GUI and sensor rendering; ROS camera stream validation pending |
-| Autopilot | ArduPilot SITL, ArduCopter 4.8.0-dev | Gazebo flight and takeoff/landing confirmed by the developer; full source revision capture pending |
+| Autopilot | ArduPilot SITL, ArduCopter 4.8.0-dev | Gazebo flight and takeoff/landing confirmed; full ArduPilot and plugin source revisions recorded |
 | Ground station | Mission Planner 1.3.83 on Windows | UDP connection and takeoff/landing confirmed; normal arm verified directly after switching from LAND to GUIDED |
 
 ## Working environments

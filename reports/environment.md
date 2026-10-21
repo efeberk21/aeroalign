@@ -25,8 +25,10 @@ Date: 2026-10-21. Environment and basic simulated flight checks have passed. Fli
 | Host VMware renderer | DX12 renderer on RTX 4060, observed in renderer log |
 | Gazebo renderer comparison | Developer reports jitter with default renderer; no jitter with `--render-engine ogre` on the same shapes scene |
 | Working launch choice | Ogre for GUI and Sensors in a local Iris world copy; simulated takeoff and landing confirmed |
-| ArduPilot runtime | ArduCopter `V4.8.0-dev (5aa07216)` shown in Mission Planner; full source SHA pending |
-| Gazebo integration | `ardupilot_gazebo`, all four plugin targets built; source SHA pending |
+| ArduPilot runtime | ArduCopter `V4.8.0-dev (5aa07216)` shown in Mission Planner |
+| ArduPilot source commit | `5aa0721611bdd66ded2285873c091b5ef7ac69e7` |
+| Gazebo integration | `ardupilot_gazebo`, all four plugin targets built |
+| Gazebo plugin source commit | `082a0fe231f6e63bc8d1598f1cba461d9e2ea7f5` |
 | Vehicle settings | `FRAME_CLASS=1`, `FRAME_TYPE=1`; restart required after changing class |
 | Mission Planner | `1.3.83`, build `1.3.9384.38258`, UDP 14550 connection observed directly |
 | Flight evidence | Developer confirmed MAVProxy and Mission Planner takeoff/landing; normal Mission Planner arm observed directly in Guided |
@@ -40,3 +42,5 @@ Do not infer a literal 1 MB physical GPU from the guest diagnostic value. Simula
 See [Day 2 commands](../docs/day-02.md). Windows UDP 14550 is the verified Mission Planner destination. The application flight node's Ubuntu UDP 14560 endpoint is planned and has not yet been configured or tested. Gazebo/SITL JSON transport is distinct from both GCS endpoints.
 
 Store the current Windows VMnet8 IPv4 in ignored `reports/paths.local.md`; it is a machine-specific value. Both the network destination and the source revisions should be checked when moving this setup to another computer.
+
+Both full source revisions were supplied by the developer using `git -C ... rev-parse HEAD` in Ubuntu after the successful Day 2 flight checks. These are source identities; no upstream branch or release was inferred from them.

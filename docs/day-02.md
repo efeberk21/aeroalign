@@ -168,13 +168,18 @@ status COMMAND_ACK
 
 `Taking off to 5.0 meters` satırı tek başına kalkış kanıtı değildir; araç disarmed ise hareket etmeyebilir. Drone'un hareketi ve telemetri birlikte gözlenir.
 
-## Sürüm kaydı — kalan belge adımı
+## Sürüm kaydı — tamamlandı
 
-Mission Planner başlığında ArduCopter `V4.8.0-dev (5aa07216)` gözlendi. Tam kaynak commit kimlikleri henüz alınmadı. Ubuntu terminalinde, MAVProxy isteminde değil:
+Mission Planner başlığında ArduCopter `V4.8.0-dev (5aa07216)` gözlendi. Kullanıcı, başarılı uçuşların ardından Ubuntu terminalinde aşağıdaki komutlarla tam kaynak kimliklerini paylaştı:
 
 ```bash
 git -C ~/projects/drone_alignment_vendor/ardupilot rev-parse HEAD
 git -C ~/projects/drone_alignment_vendor/ardupilot_gazebo rev-parse HEAD
 ```
 
-Çıktılar ortam raporuna eklenecek. Çalışan sürümü kaydetmeden bağımlılık depolarını gelişigüzel güncelleme. Gün 3'ün ilk işlevsel hedefi aşağı bakan kameradan ROS 2'ye görüntü aktarmaktır.
+| Kaynak deposu | Doğrulanan HEAD |
+|---|---|
+| ArduPilot | `5aa0721611bdd66ded2285873c091b5ef7ac69e7` |
+| ardupilot_gazebo | `082a0fe231f6e63bc8d1598f1cba461d9e2ea7f5` |
+
+Kimlikler [ortam raporuna](../reports/environment.md) da kaydedildi. Gün 2'nin kurulum, uçuş ve sürüm kaydı adımları tamamlandı. Bu çalışan kaynak sürümlerini bilinçli bir neden olmadan güncelleme. Gün 3'ün ilk işlevsel hedefi aşağı bakan kameradan ROS 2'ye görüntü aktarmaktır.

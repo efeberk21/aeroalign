@@ -59,15 +59,30 @@ Basit ve duraklatılmış sahnede de sorun varsa fizik modelinden önce görünt
 gz sim -v 4 shapes.sdf --render-engine ogre
 ```
 
-Bu deneme yalnızca renderer karşılaştırmasıdır; proje renderer'ının kalıcı seçimi değildir. Sonuçları görmeden başka ortam değişkeni veya sürücü değişikliği ekleme.
+Bu deneme renderer karşılaştırmasıdır. Kullanıcı aynı sahnede varsayılan renderer'da jitter olduğunu, `--render-engine ogre` ile jitter olmadığını bildirdi. Bu sonuçla sonraki kurulum denemelerini açıkça Ogre seçerek yapacağız. Alttaki sürücü/renderer hatasının tam nedeni kanıtlanmış değildir; başka ortam değişkeni veya sürücü değişikliği eklenmedi.
 
 | Durum | Varsayılan renderer | Ogre renderer |
 |---|---|---|
+| Kullanıcının aynı sahne karşılaştırması | Jitter var | Jitter yok |
 | Pause, kamera sabit | Henüz ölçülmedi | Henüz ölçülmedi |
 | Pause, kamera hareketli | Henüz ölçülmedi | Henüz ölçülmedi |
 | Play | Henüz ölçülmedi | Henüz ölçülmedi |
 
 Kaynak: [Gazebo Harmonic troubleshooting](https://gazebosim.org/docs/harmonic/troubleshooting/).
+
+## Sonraki adım — mevcut kamera köprüsü paketlerini kontrol et
+
+Ubuntu terminalinde aşağıdaki komutları çalıştır. Bunlar kurulum yapmaz; zaten bulunan paketleri doğrular:
+
+```bash
+source /opt/ros/jazzy/setup.bash
+ros2 pkg prefix ros_gz_bridge
+python3 -c "import rclpy; from cv_bridge import CvBridge; print('ROS 2 ve cv_bridge tamam')"
+```
+
+İlk komut ROS ortamını yükler. İkinci komut köprü paketinin kurulu olduğu yolu yazmalıdır. Son komut başarı mesajı üretmelidir. Eksik paket varsa yalnızca onu kuracağız.
+
+GUI'nin düzgün çizilmesi sensör kamerasının da doğrulandığı anlamına gelmez. Sonraki kamera dünyasında `gz-sim-sensors-system` için `<render_engine>ogre</render_engine>` seçimini de açıkça kontrol et; kamera topic'i ve ROS görüntü akışı ayrı kabul koşuludur. Bu parametre [Sensors sistem belgesinde](https://gazebosim.org/api/sim/8/classgz_1_1sim_1_1systems_1_1Sensors.html) tanımlanır.
 
 ## Bugünün kabul koşulları
 
@@ -75,7 +90,7 @@ Kaynak: [Gazebo Harmonic troubleshooting](https://gazebosim.org/docs/harmonic/tr
 - [x] Windows'ta CUDA destekli PyTorch ve Ultralytics import ediliyor.
 - [x] GPU üzerinde matris işlemi ve backward adımı başarıyla yapıldı.
 - [x] Paket sürümleri kaydedildi.
-- [ ] Gazebo jitter'ının hangi koşulda oluştuğu tekrarlanabilir biçimde yazıldı.
-- [ ] Sonraki kurulum adımı, teşhis sonucuna göre belirlendi.
+- [x] Gazebo jitter'ının hangi koşulda oluştuğu kullanıcı karşılaştırmasıyla kaydedildi.
+- [x] Sonraki kurulum adımı, renderer karşılaştırmasına göre belirlendi.
 
-Jitter doğrulanmadan ArduPilot, kamera ve kontrol katmanlarını aynı anda eklemeyeceğiz.
+Temel GUI denemesi için Ogre ile devam ediyoruz. Kamera/ROS görüntü akışını doğruladıktan sonra ArduPilot katmanını ekleyeceğiz; renderer değişikliğini bütün simülasyonun tamamlandığı şeklinde sunmuyoruz.

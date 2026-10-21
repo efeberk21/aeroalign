@@ -21,5 +21,7 @@ Date: 2026-10-21. This report records observed setup facts, not a completed simu
 | Guest GL | SVGA3D, OpenGL 4.3, Mesa 25.2.8 |
 | Guest acceleration report | `Accelerated: no`, `Video memory: 1MB`; under investigation |
 | Host VMware renderer | DX12 renderer on RTX 4060, observed in renderer log |
+| Gazebo renderer comparison | Developer reports jitter with default renderer; no jitter with `--render-engine ogre` on the same shapes scene |
+| Working launch choice | Explicit Ogre renderer for the next setup tests; camera output and longer runs not yet verified |
 
 Do not infer a literal 1 MB physical GPU from the guest diagnostic value. Simulation rendering and PyTorch CUDA access are different paths. Keep absolute machine paths and raw logs in ignored local files.

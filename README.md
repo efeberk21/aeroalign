@@ -12,7 +12,7 @@ Environment setup has started. The flight and perception application has not bee
 |---|---|---|
 | Training | Windows, Python 3.12, RTX 4060 | CUDA, backward pass and YOLO11n architecture forward verified |
 | ROS 2 | Ubuntu 24.04 VM, Jazzy | Existing installation reported by the developer |
-| Simulation | Gazebo Harmonic 8.15.0 | Existing installation; visual jitter under investigation |
+| Simulation | Gazebo Harmonic 8.15.0 | Developer confirmed shapes scene is stable with `--render-engine ogre`; camera validation pending |
 | Autopilot | ArduPilot SITL | Not installed or verified for this project yet |
 | Ground station | Mission Planner on Windows | Installation status not checked yet |
 

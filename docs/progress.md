@@ -29,10 +29,13 @@ Initialize the repository, verify the Windows GPU training environment, and inve
 - Bootstrap commit `cf9ac83` pushed to `origin/main`; local and remote commit IDs verified equal.
 - Markdown links and fenced blocks checked; saved CUDA evidence validated. No application unit tests exist at this environment-only checkpoint.
 - Existing Ubuntu VM started; 3B acceleration is enabled in configuration.
-- Developer supplied Gazebo 8.15.0, memory and renderer diagnostics. Jitter root cause is not yet proven.
+- Developer supplied Gazebo 8.15.0, memory and renderer diagnostics.
+- Developer performed the same-scene renderer comparison: default renderer jitters; `gz sim -v 4 shapes.sdf --render-engine ogre` does not jitter. This narrows the issue to the rendering path; the exact underlying driver/renderer defect has not been proven.
+- Ruling: use explicit Ogre for the next simulation setup tests. Do not change VM resources, drivers or global shell settings without a new reason. Camera rendering must be checked separately.
 
 ### Next actions
 
-- Compare paused/default-renderer and paused/Ogre Gazebo runs using developer-supplied observations.
+- Check existing `ros_gz_bridge` and `cv_bridge` packages without reinstalling ROS or Gazebo.
+- Verify camera sensor output using an explicitly selected sensor renderer before relying on it for the drone model.
 
-Day 1 remains in progress: Windows setup and repository bootstrap are verified; Gazebo stability is pending the comparison. No permanent guest graphics change or new ROS/Gazebo installation has been applied.
+Day 1 basic graphics gate passed on the developer's same-scene observation. Windows setup and repository bootstrap are verified. Camera output, ROS camera bridging and flight simulation remain unverified. No permanent guest graphics change or new ROS/Gazebo installation has been applied.

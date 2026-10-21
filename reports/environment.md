@@ -1,6 +1,6 @@
 # Environment observations
 
-Date: 2026-10-21. This report records observed setup facts, not a completed simulation validation.
+Date: 2026-10-21. Environment and basic simulated flight checks have passed. Flight observations are manual; camera and perception validation remains pending.
 
 | Component | Observed value |
 |---|---|
@@ -16,12 +16,27 @@ Date: 2026-10-21. This report records observed setup facts, not a completed simu
 | Actual CUDA check | CUDA 12.6, matmul/backward passed, YOLO11n architecture forward passed |
 | VMware | Player 17.6.1, virtual hardware version 21 |
 | Guest allocation | 4 vCPU, 4096 MiB RAM, NAT |
-| Guest OS / ROS | Ubuntu 24.04 / ROS 2 Jazzy, reported existing installation |
+| Guest OS / ROS | Ubuntu 24.04 / ROS 2 Jazzy; bridge and Python imports confirmed by the developer |
 | Gazebo | 8.15.0, reported by the developer |
+| Gazebo packaging | ROS vendor; `ros-jazzy-gz-sim-vendor` `0.0.13-1noble.20260905.073557` |
+| Gazebo executable | `/opt/ros/jazzy/opt/gz_tools_vendor/bin/gz` |
 | Guest GL | SVGA3D, OpenGL 4.3, Mesa 25.2.8 |
-| Guest acceleration report | `Accelerated: no`, `Video memory: 1MB`; under investigation |
+| Guest acceleration report | `Accelerated: no`, `Video memory: 1MB`; exact driver limitation not established |
 | Host VMware renderer | DX12 renderer on RTX 4060, observed in renderer log |
 | Gazebo renderer comparison | Developer reports jitter with default renderer; no jitter with `--render-engine ogre` on the same shapes scene |
-| Working launch choice | Explicit Ogre renderer for the next setup tests; camera output and longer runs not yet verified |
+| Working launch choice | Ogre for GUI and Sensors in a local Iris world copy; simulated takeoff and landing confirmed |
+| ArduPilot runtime | ArduCopter `V4.8.0-dev (5aa07216)` shown in Mission Planner; full source SHA pending |
+| Gazebo integration | `ardupilot_gazebo`, all four plugin targets built; source SHA pending |
+| Vehicle settings | `FRAME_CLASS=1`, `FRAME_TYPE=1`; restart required after changing class |
+| Mission Planner | `1.3.83`, build `1.3.9384.38258`, UDP 14550 connection observed directly |
+| Flight evidence | Developer confirmed MAVProxy and Mission Planner takeoff/landing; normal Mission Planner arm observed directly in Guided |
+| ROS tooling | colcon and `rqt_image_view` availability confirmed by developer |
+| Pending validation | Downward camera, ROS image stream, measured RTF/FPS, perception, alignment |
 
 Do not infer a literal 1 MB physical GPU from the guest diagnostic value. Simulation rendering and PyTorch CUDA access are different paths. Keep absolute machine paths and raw logs in ignored local files.
+
+## Restart and network
+
+See [Day 2 commands](../docs/day-02.md). Windows UDP 14550 is the verified Mission Planner destination. The application flight node's Ubuntu UDP 14560 endpoint is planned and has not yet been configured or tested. Gazebo/SITL JSON transport is distinct from both GCS endpoints.
+
+Store the current Windows VMnet8 IPv4 in ignored `reports/paths.local.md`; it is a machine-specific value. Both the network destination and the source revisions should be checked when moving this setup to another computer.

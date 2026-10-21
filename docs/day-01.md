@@ -66,11 +66,11 @@ Bu deneme renderer karşılaştırmasıdır. Kullanıcı aynı sahnede varsayıl
 | Kullanıcının aynı sahne karşılaştırması | Jitter var | Jitter yok |
 | Pause, kamera sabit | Henüz ölçülmedi | Henüz ölçülmedi |
 | Pause, kamera hareketli | Henüz ölçülmedi | Henüz ölçülmedi |
-| Play | Henüz ölçülmedi | Henüz ölçülmedi |
+| Play | Henüz ölçülmedi | Kullanıcı çalıştığını doğruladı; sayısal ölçüm yok |
 
 Kaynak: [Gazebo Harmonic troubleshooting](https://gazebosim.org/docs/harmonic/troubleshooting/).
 
-## Sonraki adım — mevcut kamera köprüsü paketlerini kontrol et
+## Mevcut kamera köprüsü paketleri — doğrulandı
 
 Ubuntu terminalinde aşağıdaki komutları çalıştır. Bunlar kurulum yapmaz; zaten bulunan paketleri doğrular:
 
@@ -80,7 +80,7 @@ ros2 pkg prefix ros_gz_bridge
 python3 -c "import rclpy; from cv_bridge import CvBridge; print('ROS 2 ve cv_bridge tamam')"
 ```
 
-İlk komut ROS ortamını yükler. İkinci komut köprü paketinin kurulu olduğu yolu yazmalıdır. Son komut başarı mesajı üretmelidir. Eksik paket varsa yalnızca onu kuracağız.
+Kullanıcı ikinci komutta `/opt/ros/jazzy`, son komutta `ROS 2 ve cv_bridge tamam` çıktısını paylaştı. Ayrıca colcon ve `rqt_image_view` erişilebilirliği doğrulandı. Bu kontrollerin yeniden kurulum gerektirmediği görüldü.
 
 GUI'nin düzgün çizilmesi sensör kamerasının da doğrulandığı anlamına gelmez. Sonraki kamera dünyasında `gz-sim-sensors-system` için `<render_engine>ogre</render_engine>` seçimini de açıkça kontrol et; kamera topic'i ve ROS görüntü akışı ayrı kabul koşuludur. Bu parametre [Sensors sistem belgesinde](https://gazebosim.org/api/sim/8/classgz_1_1sim_1_1systems_1_1Sensors.html) tanımlanır.
 
@@ -93,4 +93,4 @@ GUI'nin düzgün çizilmesi sensör kamerasının da doğrulandığı anlamına 
 - [x] Gazebo jitter'ının hangi koşulda oluştuğu kullanıcı karşılaştırmasıyla kaydedildi.
 - [x] Sonraki kurulum adımı, renderer karşılaştırmasına göre belirlendi.
 
-Temel GUI denemesi için Ogre ile devam ediyoruz. Kamera/ROS görüntü akışını doğruladıktan sonra ArduPilot katmanını ekleyeceğiz; renderer değişikliğini bütün simülasyonun tamamlandığı şeklinde sunmuyoruz.
+Gün 1 temel ortam kontrolleri tamamlandı. [Gün 2'de](day-02.md) ArduPilot/Gazebo ve Mission Planner uçuşları da doğrulandı. Kamera/ROS görüntü akışını Gün 3'te ayrı olarak kontrol edeceğiz.

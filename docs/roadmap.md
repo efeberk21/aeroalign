@@ -1,6 +1,8 @@
 # Görsel Platforma Hizalanan Drone — 15 Günlük Uygulama Planı
 
-> **Uygulayıcı için:** Bu belgeyi gün gün, sırayla uygula. Kodlama bir ajanla yürütülürse `executing-plans` yaklaşımıyla tek bir adımı uygula, doğrula ve sonraki adıma geç. İşaret kutuları ilerlemeyi takip etmek içindir. Bu belge bir yol haritasıdır; aşağıdaki kurulumlar ve uçuş denemeleri henüz yapılmış değildir.
+> **Uygulayıcı için:** Bu belgeyi gün gün, sırayla uygula. Uygulama kodunu kullanıcı ve asistan birlikte, adım adım yazacak; asistan kullanıcı adına uygulamayı bağımsız tamamlamayacak. İşaret kutuları ilerlemeyi takip etmek içindir. Gün 1 temel ortam ve Gün 2 uçuş kontrolleri tamamlandı; tam vendor commit kimliklerinin kaydı bekliyor. Gerçekleşen işler ve kanıtları [ilerleme kaydındadır](progress.md).
+
+**Mevcut kurulum:** Uygulama reposu Ubuntu'da `~/projects/aeroalign`; planın sonraki bölümlerindeki `~/projects/drone_alignment` başlangıç yer tutucusudur, uygularken gerçek repo yolunu kullan. Bu bilgisayarda Gazebo, ROS Jazzy vendor paketleriyle kurulu ve Ogre ile çalışıyor. Mevcut kurulumun yeniden başlatılması için [Gün 2'deki doğrulanan komutları](day-02.md) kullan.
 
 **Amaç:** Gazebo'daki drone'un aşağı bakan kamera görüntüsünde, kendi topladığın verilerle eğittiğin modeli kullanarak teslimat platformunu bulması ve komut verdiğinde platformun üzerinde hizalanıp havada beklemesi.
 
@@ -414,7 +416,7 @@ glxinfo -B
 
 ```bash
 gz sim --versions
-gz sim -r shapes.sdf
+gz sim -r shapes.sdf --render-engine ogre
 ```
 
 - [ ] Pencerenin açıldığını ve hareketin akıcı olduğunu gözle. Çözünürlüğü küçük tut; grafik sürücü hatasını terminalden kaydet.
@@ -434,9 +436,9 @@ py -3.12 -m venv .venv
 
 ### Gün sonu çıktısı ve kabul
 
-- [ ] Gazebo şekil dünyası açılıyor; çizim motoru bilgisi kaydedildi.
-- [ ] Windows'taki PyTorch CUDA kontrolü `True` ve RTX 4060 adı veriyor.
-- [ ] Ortam bilgileri `reports/environment.md` içinde.
+- [x] Gazebo şekil dünyası açılıyor; çizim motoru bilgisi kaydedildi.
+- [x] Windows'taki PyTorch CUDA kontrolü `True` ve RTX 4060 adı veriyor.
+- [x] Ortam bilgileri `reports/environment.md` içinde.
 
 **Takılırsan:** CUDA sorunu Windows eğitim ortamında çözülür; VM'e NVIDIA sürücüsü kurmaya geçme. Gazebo boş/karanlık açılıyorsa model dosyalarından önce grafik motorunu incele. Bugünün çıktısı uçan drone değil, doğrulanmış altyapıdır.
 
@@ -449,9 +451,11 @@ py -3.12 -m venv .venv
 
 **Bağımlılık:** Gün 1'de Gazebo çalışıyor.
 
+**21 Ekim uygulama notu:** Uçuş kontrolleri geçti. Jazzy vendor kurulumu, Ogre dünya kopyası, FRAME_CLASS düzeltmesi ve yeniden başlatma adımlarının ayrıntıları [Gün 2 kaydında](day-02.md). Tam kaynak commit kimlikleri hâlâ alınacak.
+
 ### Adımlar
 
-- [ ] ArduPilot'u proje kodunun dışında bir üçüncü taraf klasörüne al:
+- [x] ArduPilot'u proje kodunun dışında bir üçüncü taraf klasörüne al:
 
 ```bash
 mkdir -p ~/projects/drone_alignment_vendor
@@ -462,25 +466,25 @@ Tools/environment_install/install-prereqs-ubuntu.sh -y
 ```
 
 - [ ] [Resmî Linux kurulumunun](https://ardupilot.org/dev/docs/building-setup-linux.html) istediği profil/ortam adımlarını tamamla; yeni terminal aç. İlk başarılı sürümün commit kimliğini `git rev-parse HEAD` ile kaydet. Plan boyunca her gün `git pull` yapma.
-- [ ] Güncel [ArduPilot Gazebo eklentisini](https://github.com/ArduPilot/ardupilot_gazebo) ayrı vendor klasörüne klonla; Harmonic bağımlılıklarını kurup derle. Belgedeki `GZ_VERSION=harmonic`, eklenti ve model arama yollarını uygula. Bu adımlar ROS paketini derlemekten ayrıdır.
-- [ ] Gazebo terminalinde örnek Iris dünyasını başlat:
+- [x] Güncel [ArduPilot Gazebo eklentisini](https://github.com/ArduPilot/ardupilot_gazebo) ayrı vendor klasörüne klonla; Harmonic bağımlılıklarını kurup derle. Bu bilgisayarda `libgz-sim8-dev` yerine mevcut ROS vendor kütüphaneleriyle derleme doğrulandı. `GZ_VERSION=harmonic`, eklenti ve model arama yolları [Gün 2'de](day-02.md) yazılı.
+- [x] Gazebo terminalinde Ogre için uyarlanmış Iris dünyasını başlat; önce Gün 2'deki export ayarlarını yükle:
 
 ```bash
-gz sim -v4 -r iris_runway.sdf
+gz sim -v 4 -r iris_runway_ogre.sdf --render-engine ogre
 ```
 
-- [ ] Ayrı SITL terminalinde Windows adresini alıp bağlantıyı başlat:
+- [x] Ayrı SITL terminalinde bağlantıyı başlat:
 
 ```bash
-read -r -p "Windows VMware VMnet8 IPv4 adresi: " ALIGN_WINDOWS_IP
-cd ~/projects/drone_alignment_vendor/ardupilot
-./Tools/autotest/sim_vehicle.py -v ArduCopter -f gazebo-iris --model JSON --console --map --out="udp:${ALIGN_WINDOWS_IP}:14550" --out=udp:127.0.0.1:14560
+source ~/venv-ardupilot/bin/activate
+cd ~/projects/drone_alignment_vendor/ardupilot/ArduCopter
+python3 ../Tools/autotest/sim_vehicle.py -v ArduCopter -f gazebo-iris --model JSON -j 2 --console --map
 ```
 
-Windows adresini Windows'taki `ipconfig` çıktısından belirle. NAT kullanıyorsan VMware VMnet8 adaptörünün IPv4 adresi başlangıç adayıdır; NAT ağ geçidi adresinin Windows adresi olduğunu varsayma. Bridged kullanıyorsan erişilebilir Windows LAN adresini kullan. Bu komut simüle drone içindir.
+Windows adresini Windows'taki `ipconfig` çıktısından belirle. NAT kullanıyorsan VMware VMnet8 adaptörünün IPv4 adresini kullan; NAT ağ geçidi adresinin Windows adresi olduğunu varsayma. Bridged kullanıyorsan erişilebilir Windows LAN adresini kullan. Çalışan MAVProxy isteminde `output add WINDOWS_VMNET8_IPV4:14550` ile gerçek adresi hedef olarak ekle ve `output list` ile doğrula. Bu yöntem bu bilgisayarda denendi. Normal yeniden başlatmaya `-w` ekleme: kaydedilen parametreleri sıfırlar.
 
-- [ ] Mission Planner'da bağlantı tipini UDP, dinleme portunu `14550` seç. Mission Planner'ın Simulation ekranından ikinci bir SITL başlatma; zaten Gazebo'ya bağlı tek SITL çalışıyor.
-- [ ] MAVProxy konsolunda konum/EKF hazır olana kadar bekle; sonra:
+- [x] Mission Planner'da bağlantı tipini UDP, dinleme portunu `14550` seç. Mission Planner'ın Simulation ekranından ikinci bir SITL başlatma; zaten Gazebo'ya bağlı tek SITL çalışıyor.
+- [x] MAVProxy konsolunda konum/EKF hazır olana kadar bekle; sonra satır satır uygula. Arm onayı ile kalkış arasında sohbet yanıtı bekleme:
 
 ```text
 mode guided
@@ -488,8 +492,8 @@ arm throttle
 takeoff 5
 ```
 
-- [ ] Drone'un yükselip durduğunu ve Mission Planner telemetrisinin aynı drone'u gösterdiğini doğrula.
-- [ ] MAVProxy'den `mode land` ile simüle uçuşu bitir. Arming denetimlerini topluca kapatmak yerine hata mesajını çöz.
+- [x] Drone'un yükselip durduğunu ve Mission Planner telemetrisinin aynı drone'u gösterdiğini doğrula.
+- [x] MAVProxy'den `mode land` ile simüle uçuşu bitir. Mission Planner üzerinden kalkış/iniş de kullanıcı tarafından doğrulandı. Sonraki arm öncesi Guided modunu Set Mode ile uygula. `FRAME_CLASS=0` hatası sınıfı `1` yapıp yeniden başlatarak çözüldü; arming denetimleri topluca kapatılmadı.
 - [ ] Çalışan komutları, commit kimliklerini ve ağ adreslerini `reports/environment.md` içine kaydet.
 
 ### Portların görevi
@@ -497,16 +501,16 @@ takeoff 5
 | Port | Kullanım |
 |---|---|
 | Windows UDP 14550 | Mission Planner telemetrisi ve komutları |
-| Ubuntu UDP 14560 | Proje uçuş düğümünün MAVLink bağlantısı |
+| Ubuntu UDP 14560 | Proje uçuş düğümü için planlanan MAVLink bağlantısı; henüz kurulup doğrulanmadı |
 | SITL/Gazebo iç bağlantısı | Eklentinin kendi ayarları; yukarıdaki GCS portlarıyla karıştırma |
 
 MAVProxy'yi yönlendirici olarak kullan; iki programı aynı UDP dinleme portuna bağlama. Windows güvenlik duvarında gerekirse yalnızca ilgili uygulama/port için dar kapsamlı özel ağ izni ver; güvenlik duvarını bütünüyle kapatma. GCS yönlendirme yaklaşımı [ArduPilot SITL belgesinde](https://ardupilot.org/dev/docs/using-sitl-for-ardupilot-testing.html) açıklanır.
 
 ### Gün sonu çıktısı ve kabul
 
-- [ ] Gazebo ve Mission Planner aynı drone'u gösteriyor.
-- [ ] GUIDED kalkış, yaklaşık 5 metre havada bekleme ve LAND çalışıyor.
-- [ ] Portlar ve yeniden başlatma komutları yazılı.
+- [x] Gazebo ve Mission Planner aynı drone'u gösteriyor.
+- [x] GUIDED `takeoff 5`, havada bekleme gözlemi ve LAND kullanıcı tarafından doğrulandı; sayısal kararlılık ölçümü henüz yapılmadı.
+- [x] Portlar ve yeniden başlatma komutları yazılı.
 
 **Takılırsan:** Önce Gazebo–SITL, sonra SITL–Mission Planner bağlantısını ayrı ayrı doğrula. Mission Planner bağlanmıyorsa bu, Gazebo eklentisinin çalışmadığı anlamına gelmez.
 

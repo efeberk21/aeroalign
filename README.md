@@ -6,15 +6,15 @@ AeroAlign will detect a delivery platform in a downward-facing camera image and 
 
 ## Current status
 
-Environment setup has started. The flight and perception application has not been implemented yet.
+Day 1 environment checks and Day 2 simulation flight checks have passed. The developer completed takeoff and landing through MAVProxy and Mission Planner. The perception and alignment application has not been implemented yet; application code will be written together, step by step.
 
 | Component | Environment | Status |
 |---|---|---|
 | Training | Windows, Python 3.12, RTX 4060 | CUDA, backward pass and YOLO11n architecture forward verified |
-| ROS 2 | Ubuntu 24.04 VM, Jazzy | Existing installation reported by the developer |
-| Simulation | Gazebo Harmonic 8.15.0 | Developer confirmed shapes scene is stable with `--render-engine ogre`; camera validation pending |
-| Autopilot | ArduPilot SITL | Not installed or verified for this project yet |
-| Ground station | Mission Planner on Windows | Installation status not checked yet |
+| ROS 2 | Ubuntu 24.04 VM, Jazzy | `rclpy`, `cv_bridge`, `ros_gz_bridge`, colcon and image viewer availability confirmed |
+| Simulation | Gazebo Harmonic 8.15.0, ROS vendor packages | Iris flight works with Ogre selected for GUI and sensor rendering; ROS camera stream validation pending |
+| Autopilot | ArduPilot SITL, ArduCopter 4.8.0-dev | Gazebo flight and takeoff/landing confirmed by the developer; full source revision capture pending |
+| Ground station | Mission Planner 1.3.83 on Windows | UDP connection and takeoff/landing confirmed; normal arm verified directly after switching from LAND to GUIDED |
 
 ## Working environments
 
@@ -28,6 +28,7 @@ Keep virtual environments, datasets, checkpoints, generated ROS build output, an
 
 - [15-day roadmap (Turkish)](docs/roadmap.md)
 - [Day 1 setup and diagnostics (Turkish)](docs/day-01.md)
+- [Day 2 setup, restart commands and troubleshooting (Turkish)](docs/day-02.md)
 - [Progress and decisions](docs/progress.md)
 - [Environment observations](reports/environment.md)
 - [Actual Windows GPU check](reports/windows_gpu_check.json)

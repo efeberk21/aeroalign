@@ -33,9 +33,47 @@ Initialize the repository, verify the Windows GPU training environment, and inve
 - Developer performed the same-scene renderer comparison: default renderer jitters; `gz sim -v 4 shapes.sdf --render-engine ogre` does not jitter. This narrows the issue to the rendering path; the exact underlying driver/renderer defect has not been proven.
 - Ruling: use explicit Ogre for the next simulation setup tests. Do not change VM resources, drivers or global shell settings without a new reason. Camera rendering must be checked separately.
 
-### Next actions
+### Additional Day 1 evidence
 
-- Check existing `ros_gz_bridge` and `cv_bridge` packages without reinstalling ROS or Gazebo.
-- Verify camera sensor output using an explicitly selected sensor renderer before relying on it for the drone model.
+- Developer confirmed `ros_gz_bridge` resolves to `/opt/ros/jazzy` and the `rclpy` / `cv_bridge` import succeeds.
+- Developer reported `/usr/bin/colcon` and `/opt/ros/jazzy` for `rqt_image_view` after installing the Ubuntu tooling.
+- Developer repeated the Windows CUDA check: `cuda:0`, loss `13.0`, gradient `[4.0, 6.0]`.
+- Developer confirmed the running Ogre shapes scene works and the repository was cloned into `~/projects/aeroalign`.
+- Existing VS Code is sufficient; further editor setup was explicitly skipped at the developer's request.
 
-Day 1 basic graphics gate passed on the developer's same-scene observation. Windows setup and repository bootstrap are verified. Camera output, ROS camera bridging and flight simulation remain unverified. No permanent guest graphics change or new ROS/Gazebo installation has been applied.
+Day 1 basic environment gate passed. Camera output and ROS camera bridging remain separate Day 3 checks.
+
+## 2026-10-21 — Day 2
+
+### Scope and evidence
+
+- Developer cloned ArduPilot and its submodules outside the application repo, into `~/projects/drone_alignment_vendor/ardupilot`.
+- Official prerequisite script completed; `sim_vehicle.py` and `~/venv-ardupilot/bin/mavproxy.py` became available in the setup terminal.
+- Initial standalone quad SITL built and supplied heartbeat, IMU and simulation telemetry.
+- Gazebo was identified as the ROS Jazzy vendor installation: `gz` comes from `/opt/ros/jazzy/opt/gz_tools_vendor/bin/gz`; `ros-jazzy-gz-sim-vendor` version `0.0.13-1noble.20260905.073557` is installed.
+- The initial standalone-package instruction failed with `Unable to locate package libgz-sim8-dev`. Corrected the dependency list for the existing vendor installation; no OSRF package repository or second Gazebo installation was added.
+- Developer built `ArduPilotPlugin`, `ParachutePlugin`, `CameraZoomPlugin` and `GstCameraPlugin` successfully against the sourced ROS environment.
+- Prepared a local Ogre copy of the Iris world, changing its sensor render engine as well as selecting the GUI engine. Developer confirmed the drone appears and the scene works.
+- SITL ran with `-f gazebo-iris --model JSON`; developer supplied local position, simulation state and `EKF3 IMU1 is using GPS` telemetry.
+- `sim_vehicle.py: command not found` in a new terminal was avoided by invoking the file through `python3 ../Tools/autotest/sim_vehicle.py`.
+- Arming initially failed with `PreArm: Motors: Check frame class and type`. Developer reported `FRAME_CLASS=0`, `FRAME_TYPE=1`; class was set to `1`, SITL restarted without `-w`, and developer confirmed class remained `1`.
+- Developer confirmed takeoff and landing in Gazebo through MAVProxy.
+- Windows VMnet8 address was read locally and added as a MAVProxy output on UDP 14550. Developer supplied the resulting output list.
+- Mission Planner was inspected directly: connected to `UDP14550-1-QUADROTOR`, version `1.3.83`, running ArduCopter `V4.8.0-dev (5aa07216)`.
+- Messages showed `Arm: Land mode not armable`. Guided was selected in the dropdown but had not been applied. Clicking Set Mode changed the actual mode to Guided; normal Arm succeeded and displayed ARMED. No Force Arm was used in this verification.
+- The stationary arm test later automatically disarmed; the final directly observed state was Guided and DISARMED.
+- Developer then confirmed takeoff and landing from Mission Planner, including completion of the requested landing/disarm step.
+
+### Acceptance and limits
+
+- [x] Gazebo and Mission Planner use the same SITL vehicle.
+- [x] Takeoff, hover observation and landing sequence completed by the developer.
+- [x] Mission Planner commands and normal arming verified.
+- [x] Restart commands and corrections recorded in [Day 2](day-02.md).
+- [ ] Capture full source commit IDs for ArduPilot and `ardupilot_gazebo`; the runtime short SHA is the only source revision observed so far.
+
+Flight results are manual observations, not recorded accuracy, timing or stability measurements. No camera-to-ROS stream, trained detector, alignment controller or application node has been validated. Application code remains for the developer and assistant to write together.
+
+### Next
+
+Record the two source revisions, then start Day 3 with the downward-facing camera and ROS image bridge. Keep the ArduPilot Python environment separate from the future ROS/perception environment.

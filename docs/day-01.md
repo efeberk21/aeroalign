@@ -71,7 +71,7 @@ Kaynak: [Gazebo Harmonic troubleshooting](https://gazebosim.org/docs/harmonic/tr
 
 ## Bugünün kabul koşulları
 
-- [ ] GitHub reposu oluşturuldu, yerel commit remote ile eşleşiyor.
+- [x] GitHub reposu oluşturuldu, bootstrap commit'i remote ile eşleşiyor.
 - [x] Windows'ta CUDA destekli PyTorch ve Ultralytics import ediliyor.
 - [x] GPU üzerinde matris işlemi ve backward adımı başarıyla yapıldı.
 - [x] Paket sürümleri kaydedildi.

@@ -26,10 +26,13 @@ Initialize the repository, verify the Windows GPU training environment, and inve
 - Actual GPU matmul/backward check passed; YOLO11n architecture forward on a 416 x 416 CUDA tensor passed. No platform model was trained.
 - Exact package versions captured in `reports/requirements_windows.txt`; actual check output saved in `reports/windows_gpu_check.json`.
 - Private GitHub repository created at `https://github.com/efeberk21/aeroalign` using the existing authenticated account. Credentials were not displayed or saved in the repository.
+- Bootstrap commit `cf9ac83` pushed to `origin/main`; local and remote commit IDs verified equal.
+- Markdown links and fenced blocks checked; saved CUDA evidence validated. No application unit tests exist at this environment-only checkpoint.
 - Existing Ubuntu VM started; 3B acceleration is enabled in configuration.
 - Developer supplied Gazebo 8.15.0, memory and renderer diagnostics. Jitter root cause is not yet proven.
 
 ### Next actions
 
-- Push and verify the bootstrap commit in the private GitHub repository.
 - Compare paused/default-renderer and paused/Ogre Gazebo runs using developer-supplied observations.
+
+Day 1 remains in progress: Windows setup and repository bootstrap are verified; Gazebo stability is pending the comparison. No permanent guest graphics change or new ROS/Gazebo installation has been applied.

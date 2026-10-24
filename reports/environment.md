@@ -44,3 +44,13 @@ See [Day 2 commands](../docs/day-02.md). Windows UDP 14550 is the verified Missi
 Store the current Windows VMnet8 IPv4 in ignored `reports/paths.local.md`; it is a machine-specific value. Both the network destination and the source revisions should be checked when moving this setup to another computer.
 
 Both full source revisions were supplied by the developer using `git -C ... rev-parse HEAD` in Ubuntu after the successful Day 2 flight checks. These are source identities; no upstream branch or release was inferred from them.
+
+## Day 3 - Ubuntu inference environment (2026-10-24)
+
+- Project Python: 3.12.3, /home/efeberk/projects/aeroalign/.venv/bin/python.
+- PyTorch 2.14.1+cpu; torchvision 0.29.1+cpu; CUDA unavailable as expected for this CPU build.
+- OpenCV 4.11.0 (wheel 4.11.0.86), NumPy 1.26.4, Ultralytics 8.4.185.
+- ROS Jazzy imports, both project messages, and CvBridge image conversion verified together.
+- Use python /usr/bin/colcon from the activated project environment; .venv/bin/colcon was not created because system packages were reused.
+- requirements_ubuntu.txt is a snapshot of locally installed venv packages; inherited ROS/system packages are documented separately. PyTorch CPU packages use https://download.pytorch.org/whl/cpu.
+- One saved simulation frame completed YOLO11n inference in 46.4 ms. Sustained live performance and Gazebo GUI stutter remain unverified/deferred.

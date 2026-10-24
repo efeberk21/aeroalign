@@ -77,3 +77,30 @@ Flight results are manual observations, not recorded accuracy, timing or stabili
 ### Next
 
 Day 2 is complete. Start Day 3 with the downward-facing camera and ROS image bridge when the developer is ready. Keep the ArduPilot Python environment separate from the future ROS/perception environment.
+
+## 2026-10-22 to 2026-10-24 - Day 3 functional checkpoint
+
+### Implemented and verified
+
+- Reused Iris with Gimbal by the developer's choice; camera metadata is 640 x 480, rgb8, with a nominal 10 Hz simulation rate.
+- Added the developer-written camera_viewer node: subscribes to /camera/image_raw, converts with CvBridge, displays with OpenCV, and saves a frame when s is pressed.
+- Added PlatformObservation and BodyVelocity in the separate drone_alignment_interfaces package; generated definitions and Python message construction were verified.
+- Configured one-way Gazebo-to-ROS bridges for image, CameraInfo and Clock. A bounded integration check received matching image/CameraInfo dimensions, an advancing clock, and exactly one publisher per topic.
+- Verified camera_viewer can run with use_sim_time=true. This remains a launch-time argument.
+- Created the project .venv with system-site-packages. Verified ROS imports and a real CvBridge image round trip alongside PyTorch CPU and Ultralytics.
+- Rebuilt through python /usr/bin/colcon build --symlink-install; the camera_viewer entry-point shebang points to /home/efeberk/projects/aeroalign/.venv/bin/python.
+- Saved an actual simulation camera frame to reports/raw/camera_check.png.
+- Developer ran pretrained YOLO11n on that frame at imgsz=416, device=cpu: 1.1 ms preprocessing, 46.4 ms inference, 0.4 ms postprocessing, and no detections. This is one-image smoke-test evidence, not a live FPS benchmark.
+- Actual annotated output directory: runs/detect/reports/raw/day03_inference.
+- Captured project-installed Python packages in reports/requirements_ubuntu.txt. Windows GPU remains the planned training environment.
+
+### Acceptance and limits
+
+- Day 3's revised functional scope is complete. Detailed FPS, latency, RTF and jitter analysis were explicitly deferred by the developer; the original sustained-performance gate has not been passed.
+- The ready-made model was tested on a saved frame. Platform training, live model integration and visual alignment control remain future work.
+- The developer writes application code and runs experiments. SSH access is used only when explicitly requested.
+- Python syntax, generated-message imports and the CvBridge round trip pass. The existing package pytest run reports one flake8 failure, one pass and one skipped test; the flake8 failure concerns formatting/import order in the learning code. Application behavior was preserved during this Git checkpoint.
+
+### Next
+
+Day 4: add the target platform scene and begin collecting the project's own training data.

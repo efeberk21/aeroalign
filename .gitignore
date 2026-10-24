@@ -35,3 +35,8 @@ reports/raw/
 Thumbs.db
 .idea/
 .superpowers/
+
+# ROS outputs also created when colcon runs from a nested directory
+ros_ws/**/build/
+ros_ws/**/install/
+ros_ws/**/log/

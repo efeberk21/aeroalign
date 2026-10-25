@@ -104,3 +104,65 @@ Day 2 is complete. Start Day 3 with the downward-facing camera and ROS image bri
 ### Next
 
 Day 4: add the target platform scene and begin collecting the project's own training data.
+
+## 2026-10-24 - Day 4 platform model checkpoint
+
+### Scope and changes
+
+- The developer explicitly authorized direct SSH work to finish the simulator model and scene, then hand back a ready startup command. This checkpoint does not implement the remaining application nodes.
+- Backed up the developer's initial `sim/` files under `reports/raw/day04-original/` before editing. Copies exist in Ubuntu and the Windows workspace.
+- Prepared `delivery_platform`: 2 x 2 m dark body, orange inset and centered white H; body height is 0.12 m and decorative top is 0.128 m. The physical boundary includes the dark rim.
+- Kept all model includes inside `world`, preserved the world/drone names used by the ROS bridge, retained the existing NavSat sensor and removed visible world-axis geometry.
+- Replaced the runway include with a local matte gray ground plane. Placed the platform center at `(1, 0, 0)` m, clear of the drone's initial position.
+- Added `scripts/start_sim.sh` so each invocation sources ROS and sets project/vendor resource and plugin paths. The command works from a fresh terminal without copying exports manually.
+- Removed the unsupported Ogre sky element. ArduPilot/vendor source files and flight parameters were not changed by this model preparation.
+- Recorded the annotation boundary and first variant in `reports/dataset_card.md`; startup instructions are in [Day 4 scene](day-04-scene.md).
+
+### Verification and limits
+
+- `gz sdf -k` accepted the platform model and world. World validation used `SDF_PATH` for include resolution; the Gazebo launcher uses `GZ_SIM_RESOURCE_PATH`.
+- An isolated Gazebo server rendered the model through a fixed downward camera at 5 m. The 640 x 480 image contained the complete platform and 592 white marker pixels inside the orange-deck bounding rectangle. A separate 2 m detail view was also inspected.
+- Ran the actual drone world with `bash scripts/start_sim.sh -s`. Scene pose messages contained both `delivery_platform` and `iris_with_gimbal`; the existing bridge delivered three actual Iris camera frames at 640 x 480 with advancing source timestamps.
+- Evidence is saved in ignored `reports/raw/platform_preview_check.json`, `platform_detail_check.json`, `platform_world_smoke.json` and the corresponding images/logs. Test processes were stopped after checking.
+- A disarmed heartbeat and zero relative altitude were observed before stopping the original session. No arm or takeoff commands were sent during preparation. The fixed-camera views are rendering checks, not flight trials or measured live performance.
+- Additional platform/ground/light variants, distractors, the dataset recorder and the pilot dataset remain pending; Day 4 as a whole is not complete.
+
+## 2026-10-25 - Recorder check and collection range decision
+
+- The developer reports that the PNG recorder produced images. CSV/manifest recording has not yet been added or verified in this checkpoint.
+- The developer requested multi-height detection/tracking and explicitly chose to keep the wide field of view fixed. They then delegated the first-version maximum-height recommendation to the assistant.
+- Recommendation selected: a 5–10 m target range, with data at 5, 7.5 and 10 m, preserving the current camera and physical platform size. This is a validation target, not a measured detection range.
+- Updated the roadmap and dataset card; saved a staged pilot/collection/split/evaluation plan in [dataset collection plan](dataset-collection-plan.md).
+- Geometric estimates use 640-pixel image width, 2.0 rad horizontal FOV and a 2 m platform: approximately 82.2/54.8/41.1 pixels at 5/7.5/10 m. They assume an ideal downward, axis-aligned camera and are not detector results.
+- No camera, flight or recorder application code was changed for this planning decision.
+
+### CSV recorder implementation prepared for the next joint step
+
+- Prepared the complete `dataset_recorder.py` in the Windows workspace for the developer to copy into Ubuntu. No SSH edits or live flights were performed for this step.
+- Added per-session CSV records with source stamps, image dimensions, scene/session IDs, variants, camera profile, notes and nominal height. Image paths are relative to each manifest's directory.
+- Unknown nominal height is blank in CSV. Parameters are read at startup; a new height requires a new recording session.
+- New PNG files use exclusive creation. Failed CSV appends restore the original CSV length and remove the newly created PNG on handled errors. Existing images are preserved.
+- Five file-I/O tests were observed failing before implementation and passing afterward; Python syntax and whitespace checks passed. These tests isolate the unchanged production I/O helper without loading ROS on Windows.
+- The developer's live Ubuntu PNG+CSV check and the organized multi-height pilot remain pending.
+
+### Intermediate collection height adjusted
+
+- The developer reported `Bad alt` for 7.5 in the flight workflow and requested a different intermediate height. Updated the active collection plan to 5, 8 and 10 m; the exact command/parser cause has not been investigated.
+- Use 8 for the intermediate flight target and `nominal_height_m:=8.0` for the recorder's floating-point parameter. Stop recording during height changes and start a new session after settling.
+- Updated the geometric estimate at 8 m to approximately 51.4 raw pixels, or 33.4 pixels after scaling to 416 input width. Existing captured data and recorder code were not modified.
+
+### Live Ubuntu recording audit
+
+- At the developer's explicit request, connected through SSH and inspected the existing 5/8/10 m pilot sessions: 52, 52 and 37 images respectively, with exactly matching CSV row counts (141 total).
+- All referenced PNGs decode at 640 x 480; IDs, paths, dimensions, headers and metadata are consistent. Source timestamps advance with gaps of at least one simulation second. No exact duplicate PNGs were found within the pilot data.
+- Visual review confirms position/orientation variety. A color proxy flagged 20 edge-clipped candidates (14 at nominal 5 m, 6 at nominal 8 m); one original-size 5 m example confirms clipping. Review partial targets during curation. Negative/background/scene diversity and labels remain pending.
+- Four identical CSV-recorder test images and two earlier PNG-only test images are separate from the pilot and excluded from training. Height values are nominal operator entries, not audited telemetry.
+- Evidence and limitations are recorded in [recording audit](../reports/recording_audit_2026-10-25.md). No application code, images or manifests were changed by this audit.
+
+### Session checkpoint at the developer's request
+
+- The developer requested stopping here and pushing the current work to Git. Day 4 remains incomplete.
+- Remaining: 2–3 platform appearances in total, 3–4 ground materials, several lighting options, non-platform distractors and real simulation negatives.
+- The next scene-variation step was discussed and the existing setup was inspected, but no additional scene assets or negative recordings were created before stopping.
+- Resume with the remaining scene variants and negative pilot, then close Day 4. Do not repeat the existing positive pilot simply to increase the image count.
+- Raw datasets, images and machine-specific diagnostics remain ignored by Git and stored in Ubuntu/local `reports/raw`; Git checkpoint contains source, tests and documentation only.

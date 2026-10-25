@@ -4,6 +4,8 @@
 
 **Mevcut kurulum:** Uygulama reposu Ubuntu'da `~/projects/aeroalign`; planın sonraki bölümlerindeki `~/projects/drone_alignment` başlangıç yer tutucusudur, uygularken gerçek repo yolunu kullan. Bu bilgisayarda Gazebo, ROS Jazzy vendor paketleriyle kurulu ve Ogre ile çalışıyor. Mevcut kurulumun yeniden başlatılması için [Gün 2'deki doğrulanan komutları](day-02.md) kullan.
 
+**25 Ekim veri kapsamı güncellemesi:** Geniş görüş alanı sabit kalacak. İlk algılama/takip veri kümesi yaklaşık **5, 8 ve 10 metreyi** kapsayacak; üst hedef 10 metredir. Ayrıntılar [veri toplama planında](dataset-collection-plan.md). İlk kapalı çevrim hizalanma deneyi yaklaşık 5 metrede kalır; 10 metrede algılama/takip başarısı henüz doğrulanmış değildir.
+
 **Amaç:** Gazebo'daki drone'un aşağı bakan kamera görüntüsünde, kendi topladığın verilerle eğittiğin modeli kullanarak teslimat platformunu bulması ve komut verdiğinde platformun üzerinde hizalanıp havada beklemesi.
 
 **Mimari:** Gazebo fizik ve kamera görüntüsünü, ArduPilot SITL uçuş kontrolünü sağlar. Görüntü ROS 2'ye taşınır; algılama düğümü platformu bulur, yaklaşma düğümü yatay hız isteği üretir, uçuş arayüzü bunu MAVLink üzerinden gönderir. Mission Planner uçuşu başlatmak ve izlemek için kullanılır.
@@ -604,28 +606,30 @@ source install/setup.bash
 
 **Dosyalar:** `sim/worlds/platform_world.sdf`, `sim/models/delivery_platform/`, `dataset_recorder.py`, `reports/dataset_card.md`.
 
+**25 Ekim durumu:** Platform ve kayıt altyapısı doğrulandı; 5, 8 ve 10 metre oturumlarında 141 PNG ve eşleşen CSV satırları kontrol edildi. [Denetim raporu](../reports/recording_audit_2026-10-25.md). Görünüm/zemin/ışık çeşitleri ve platform olmayan negatif kayıtlar tamamlanana kadar Gün 4 açık kalır.
+
 ### Adımlar
 
-- [ ] Basit, yaklaşık 2 × 2 metre, yere yakın bir teslimat platformu oluştur. Kutu merkezinin platformun fiziksel merkezine yaklaşık karşılık gelmesini sağlayan simetrik geometri kullan.
+- [x] Basit, yaklaşık 2 × 2 metre, yere yakın bir teslimat platformu oluştur. Kutu merkezinin platformun fiziksel merkezine yaklaşık karşılık gelmesini sağlayan simetrik geometri kullan.
 - [ ] Aynı nesnenin 2–3 doku/işaret varyantını hazırla. İlk sürümde rastgele onlarca model indirme; birkaç kontrollü varyant yeterli.
 - [ ] Zemin için 3–4 basit malzeme, ortam için birkaç ışık/yön seçeneği hazırla. Birkaç platform olmayan kutu veya desen de ekle.
-- [ ] `dataset_card.md` içine sınıfı tanımla: “Yere yerleştirilmiş teslimat platformunun dış fiziksel sınırı.” Yalnızca üzerindeki sembol etiketlenmeyecek.
-- [ ] `dataset_recorder` düğümünü yaz. Parametreleri `output_dir`, `scene_id`, `session_id`, `save_interval_s` olsun. İlk kayıt aralığı 0,5–1 saniye.
-- [ ] Her görüntüyle birlikte `manifest.csv` satırı üret. Alanlar:
+- [x] `dataset_card.md` içine sınıfı tanımla: “Yere yerleştirilmiş teslimat platformunun dış fiziksel sınırı.” Yalnızca üzerindeki sembol etiketlenmeyecek.
+- [x] `dataset_recorder` düğümünü yaz. Parametreleri `output_dir`, `scene_id`, `session_id`, `save_interval_s` olsun. İlk kayıt aralığı 0,5–1 saniye.
+- [x] Her görüntüyle birlikte `manifest.csv` satırı üret. Alanlar:
 
 ```text
 image_id,scene_id,session_id,image_path,source_stamp_ns,width,height,platform_variant,ground_variant,light_variant,nominal_height_m,notes
 ```
 
-- [ ] Gerçek poz verisi henüz yoksa uydurma kesin değer yazma; `nominal_height_m` komutla hedeflenen yaklaşık yükseklik olabilir. Gerçek ölçümle farkını belgede açık tut.
-- [ ] Kayıt dosya adını `scene03_session02_frame0012.png` gibi benzersiz üret. Yeni oturum eski görüntülerin üzerine yazmasın.
-- [ ] Önce 30–40 görüntülük pilot kayıt al. Görüntülerin açıldığını, isimlerin benzersiz olduğunu ve manifest satır sayısını kontrol et.
+- [x] Gerçek poz verisi henüz yoksa uydurma kesin değer yazma; `nominal_height_m` komutla hedeflenen yaklaşık yükseklik olabilir. Gerçek ölçümle farkını belgede açık tut.
+- [x] Kayıt dosya adını `scene03_session02_frame0012.png` gibi benzersiz üret. Yeni oturum eski görüntülerin üzerine yazmasın.
+- [x] Önce 30–40 görüntülük pilot kayıt al. Görüntülerin açıldığını, isimlerin benzersiz olduğunu ve manifest satır sayısını kontrol et.
 
 ### Doğrulama ve kabul
 
-- [ ] Drone sabitken arka arkaya kaydedilen görüntülerin neredeyse aynı olduğunu gözle gör; bunları çeşitlilik sanma.
+- [x] Drone sabitken arka arkaya kaydedilen görüntülerin neredeyse aynı olduğunu gözle gör; bunları çeşitlilik sanma.
 - [ ] Platform yokken de kayıt al. Negatifler gerçek simülasyon sahneleri olsun.
-- [ ] Bir komutla kayıt başlıyor; görüntü ve manifest eşleşiyor; platformun etiket sınırı yazılı.
+- [x] Bir komutla kayıt başlıyor; görüntü ve manifest eşleşiyor; platformun etiket sınırı yazılı.
 
 **Takılırsan:** Önce tek zemin/tek platformla kayıt aracını bitir. Dekorasyon için günün tamamını harcama.
 
@@ -640,11 +644,11 @@ image_id,scene_id,session_id,image_path,source_stamp_ns,width,height,platform_va
 
 ### Başlangıç toplama planı
 
-Yaklaşık **12 ayrı sahne/oturum grubunda 40'ar görüntü**, toplam **480 görüntü** hedefle. Bu bir yeterlilik garantisi değil; küçük proje için başlangıç bütçesidir. Birbirine çok benzeyen kareleri ele; daha az ama daha çeşitli veri daha yararlı olabilir.
+Yaklaşık **12 ayrı sahne grubunda, üç yüksekliğin her birinde 15'er kullanılabilir görüntü**, toplam **540 görüntü** hedefle. Bu bir yeterlilik garantisi değil; küçük proje için başlangıç bütçesidir. Birbirine çok benzeyen kareleri ele; daha az ama daha çeşitli veri daha yararlı olabilir. Yükseklik, kamera ve bölme kararları [güncel veri toplama planındadır](dataset-collection-plan.md).
 
 | Değişken | Toplama sırasında denenecek durum |
 |---|---|
-| Yükseklik | Yaklaşık 4, 5 ve 6 metre |
+| Yükseklik | Yaklaşık 5, 8 ve 10 metre; geniş görüş alanı sabit |
 | Platformun görüntüdeki yeri | Merkez, sağ/sol/üst/alt ve köşeler |
 | Yönelim | Başlangıç yönü ve küçük yaw değişimleri |
 | Zemin / ışık | Farklı arka planlar, açık/koyu görünüm, gölge |
@@ -658,13 +662,13 @@ Yaklaşık **12 ayrı sahne/oturum grubunda 40'ar görüntü**, toplam **480 gö
 - [ ] Her grupta drone'u birkaç farklı konuma getir. Yalnızca kayıt frekansını artırarak görüntü sayısını doldurma.
 - [ ] Veri kümesinin yaklaşık %20–25'ini platform olmayan görüntülerden oluştur.
 - [ ] İlk görevde ağır kapanma çözülmeyeceği için platformun çoğunlukla görünür olduğu örnekleri ağırlıkta tut.
-- [ ] Grupları baştan ayır: 8 grup eğitim, 2 grup doğrulama, 2 grup son test. Yaklaşık 320/80/80 görüntü oluşur.
+- [ ] Grupları baştan ayır: 8 grup eğitim, 2 grup doğrulama, 2 grup son test. Yaklaşık 360/90/90 görüntü oluşur. Bir sahnenin bütün yükseklik oturumları aynı kümede kalır.
 - [ ] Aynı sahnenin ardışık görüntülerini farklı kümelere dağıtma. Aynı sahnenin yalnızca yeni oturum adıyla tekrarını da farklı kümeye koyma.
 - [ ] `split_manifest.csv` içine `image_id,scene_id,session_id,split` yaz. Ayırma kararını eğitimden önce sabitle.
 - [ ] Eğitime benzer ama aynı olmayan koşullarda doğrulama/test sahneleri hazırla. Modelin desteklemediği yepyeni nesne türünü tek test koşulu yapma.
 - [ ] Bozuk görüntü, tekrarlı kare ve boş manifest alanlarını temizle. Ham verinin kopyasını koru.
 
-**Gün sonu kabulü:** Yaklaşık 480 kullanılabilir görüntü veya daha az kullanma gerekçesi; negatif örnekler; sahne bazında sabit train/val/test ayrımı.
+**Gün sonu kabulü:** Yaklaşık 540 kullanılabilir görüntü veya daha az kullanma gerekçesi; üç yükseklikte örnekler; negatif örnekler; sahne bazında sabit train/val/test ayrımı.
 
 **Takılırsan:** 300 çeşitli görüntüyle ilk deneyi başlatabilirsin. Bunu rapora yaz; aynı görüntüyü çoğaltıp veri sayısını büyük gösterme. Yeni veri eklenirse veri kümesine sürüm ver.
 

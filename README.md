@@ -6,13 +6,13 @@ AeroAlign will detect a delivery platform in a downward-facing camera image and 
 
 ## Current status
 
-Day 1 environment checks and Day 2 simulation flight checks have passed. The developer completed takeoff and landing through MAVProxy and Mission Planner. The perception and alignment application has not been implemented yet; application code will be written together, step by step.
+Day 1 environment checks, Day 2 simulation flights and the revised Day 3 functional camera checkpoint have passed. Day 4's first platform and PNG/CSV recorder work: 141 pilot images at nominal 5, 8 and 10 m passed the recording-integrity audit. Additional platform/ground/light variants and platform-absent recordings remain before Day 4 is complete. Detection training and alignment control are still pending; application development continues together, step by step.
 
 | Component | Environment | Status |
 |---|---|---|
 | Training | Windows, Python 3.12, RTX 4060 | CUDA, backward pass and YOLO11n architecture forward verified |
 | ROS 2 | Ubuntu 24.04 VM, Jazzy | `rclpy`, `cv_bridge`, `ros_gz_bridge`, colcon and image viewer availability confirmed |
-| Simulation | Gazebo Harmonic 8.15.0, ROS vendor packages | Iris flight works with Ogre selected for GUI and sensor rendering; ROS camera stream validation pending |
+| Simulation | Gazebo Harmonic 8.15.0, ROS vendor packages | Iris flight, ROS camera stream and PNG/CSV recording verified with Ogre for GUI and sensors |
 | Autopilot | ArduPilot SITL, ArduCopter 4.8.0-dev | Gazebo flight and takeoff/landing confirmed; full ArduPilot and plugin source revisions recorded |
 | Ground station | Mission Planner 1.3.83 on Windows | UDP connection and takeoff/landing confirmed; normal arm verified directly after switching from LAND to GUIDED |
 
@@ -29,6 +29,8 @@ Keep virtual environments, datasets, checkpoints, generated ROS build output, an
 - [15-day roadmap (Turkish)](docs/roadmap.md)
 - [Day 1 setup and diagnostics (Turkish)](docs/day-01.md)
 - [Day 2 setup, restart commands and troubleshooting (Turkish)](docs/day-02.md)
+- [Day 4 platform scene and startup (Turkish)](docs/day-04-scene.md)
+- [Day 4 image and CSV recorder (Turkish)](docs/day-04-recording.md)
 - [Progress and decisions](docs/progress.md)
 - [Environment observations](reports/environment.md)
 - [Actual Windows GPU check](reports/windows_gpu_check.json)

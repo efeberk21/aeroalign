@@ -1,0 +1,83 @@
+<?xml version="1.0"?>
+<sdf version="1.9">
+  <model name="delivery_platform">
+    <static>true</static>
+
+    <link name="platform_link">
+      <pose>0 0 0.06 0 0 0</pose>
+
+      <collision name="platform_collision">
+        <geometry>
+          <box>
+              <size>2 2 0.12</size>
+          </box>
+        </geometry>
+      </collision>
+
+      <visual name="platform_body">
+        <geometry>
+          <box>
+            <size>2 2 0.12</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.08 0.10 0.12 1</ambient>
+          <diffuse>0.08 0.10 0.12 1</diffuse>
+          <specular>0.02 0.02 0.02 1</specular>
+        </material>
+      </visual>
+
+      <visual name="orange_deck">
+        <pose>0 0 0.062 0 0 0</pose>
+        <cast_shadows>false</cast_shadows>
+        <geometry>
+          <box><size>1.84 1.84 0.004</size></box>
+        </geometry>
+        <material>
+          <ambient>1.0 0.38 0.04 1</ambient>
+          <diffuse>1.0 0.38 0.04 1</diffuse>
+          <specular>0.02 0.02 0.02 1</specular>
+        </material>
+      </visual>
+
+      <visual name="mark_left">
+        <pose>-0.32 0 0.066 0 0 0</pose>
+        <cast_shadows>false</cast_shadows>
+        <geometry>
+          <box><size>0.14 1.10 0.004</size></box>
+        </geometry>
+        <material>
+          <ambient>0.96 0.96 0.93 1</ambient>
+          <diffuse>0.96 0.96 0.93 1</diffuse>
+          <specular>0.02 0.02 0.02 1</specular>
+        </material>
+      </visual>
+
+      <visual name="mark_right">
+        <pose>0.32 0 0.066 0 0 0</pose>
+        <cast_shadows>false</cast_shadows>
+        <geometry>
+          <box><size>0.14 1.10 0.004</size></box>
+        </geometry>
+        <material>
+          <ambient>0.96 0.96 0.93 1</ambient>
+          <diffuse>0.96 0.96 0.93 1</diffuse>
+          <specular>0.02 0.02 0.02 1</specular>
+        </material>
+      </visual>
+
+      <visual name="mark_bridge">
+        <pose>0 0 0.066 0 0 0</pose>
+        <cast_shadows>false</cast_shadows>
+        <geometry>
+          <box><size>0.64 0.14 0.004</size></box>
+        </geometry>
+        <material>
+          <ambient>0.96 0.96 0.93 1</ambient>
+          <diffuse>0.96 0.96 0.93 1</diffuse>
+          <specular>0.02 0.02 0.02 1</specular>
+        </material>
+      </visual>
+    </link>
+  </model>
+</sdf>

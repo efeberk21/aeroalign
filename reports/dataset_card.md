@@ -30,3 +30,12 @@ The CSV recorder was validated on the Ubuntu pilot. Each session has its own `ma
 - Assign all height sessions from the same scene to the same dataset split.
 - Start with a small pilot, then approximately 540 varied images across 12 scene groups. Recorder checks captured on the ground are excluded from training.
 - See the [collection plan](../docs/dataset-collection-plan.md) for assumptions, pixel-size estimates, metadata and evaluation.
+
+## Scene variants added on 2026-11-02
+
+- Second platform appearance `blue_ring_v1`: same 2 x 2 m dark-rim body, blue deck, white ring and center dot. Same class and same outer-boundary label rule as `orange_h_v1`.
+- Ground variants: `matte_gray_v1`, `sand_v1`, `asphalt_dark_v1`, `grass_v1`. Light variants: `sun_default_v1`, `sun_low_v1`, `overcast_dim_v1`. Values are in `sim/worlds/scene_variants.json`.
+- Non-platform distractors: crate, 2 x 2 m dark mat (hard negative with the platform footprint), hazard stripes and an orange barrel. They are never labeled.
+- Negative images use `platform_variant=none`.
+- Images from `scene_capture.py` use `camera_profile=rig_nadir_640x480_hfov2`: an ideal downward camera with the flight camera's resolution and FOV, at an exact height, without the drone. Their `capture_poses.csv` records camera, platform and distractor poses. Flight images keep `iris_wide_640x480_hfov2_zoom1`.
+- The 60-image `pilot04_*` set is a scene/tooling check; see the [variant pilot report](variant_pilot_2026-11-02.md). Labels and splits are still pending.

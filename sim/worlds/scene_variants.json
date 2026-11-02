@@ -1,0 +1,32 @@
+{
+  "base": {"ground": "gray", "light": "default"},
+  "grounds": {
+    "gray": {"variant": "matte_gray_v1", "color": "0.38 0.40 0.39"},
+    "sand": {"variant": "sand_v1", "color": "0.76 0.66 0.48"},
+    "asphalt": {"variant": "asphalt_dark_v1", "color": "0.12 0.12 0.13"},
+    "grass": {"variant": "grass_v1", "color": "0.24 0.40 0.18"}
+  },
+  "lights": {
+    "default": {
+      "variant": "sun_default_v1",
+      "direction": "-0.5 0.1 -0.9",
+      "diffuse": "0.8 0.8 0.8",
+      "scene_ambient": "1.0 1.0 1.0",
+      "cast_shadows": true
+    },
+    "low": {
+      "variant": "sun_low_v1",
+      "direction": "-0.85 0.35 -0.4",
+      "diffuse": "0.95 0.82 0.65",
+      "scene_ambient": "0.55 0.55 0.6",
+      "cast_shadows": true
+    },
+    "dim": {
+      "variant": "overcast_dim_v1",
+      "direction": "0.1 -0.2 -1.0",
+      "diffuse": "0.35 0.36 0.4",
+      "scene_ambient": "0.45 0.45 0.5",
+      "cast_shadows": false
+    }
+  }
+}

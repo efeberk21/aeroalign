@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<sdf version="1.9">
+  <model name="distractor_orange_barrel">
+    <static>true</static>
+
+    <link name="barrel_link">
+      <pose>0 0 0.45 0 0 0</pose>
+
+      <collision name="barrel_collision">
+        <geometry>
+          <cylinder><radius>0.3</radius><length>0.9</length></cylinder>
+        </geometry>
+      </collision>
+
+      <visual name="barrel_body">
+        <geometry>
+          <cylinder><radius>0.3</radius><length>0.9</length></cylinder>
+        </geometry>
+        <material>
+          <ambient>1.0 0.38 0.04 1</ambient>
+          <diffuse>1.0 0.38 0.04 1</diffuse>
+          <specular>0.02 0.02 0.02 1</specular>
+        </material>
+      </visual>
+
+      <visual name="barrel_band">
+        <pose>0 0 0.2 0 0 0</pose>
+        <geometry>
+          <cylinder><radius>0.305</radius><length>0.12</length></cylinder>
+        </geometry>
+        <material>
+          <ambient>0.96 0.96 0.93 1</ambient>
+          <diffuse>0.96 0.96 0.93 1</diffuse>
+          <specular>0.02 0.02 0.02 1</specular>
+        </material>
+      </visual>
+
+      <visual name="barrel_lid_ring">
+        <pose>0 0 0.452 0 0 0</pose>
+        <cast_shadows>false</cast_shadows>
+        <geometry>
+          <cylinder><radius>0.18</radius><length>0.004</length></cylinder>
+        </geometry>
+        <material>
+          <ambient>0.96 0.96 0.93 1</ambient>
+          <diffuse>0.96 0.96 0.93 1</diffuse>
+          <specular>0.02 0.02 0.02 1</specular>
+        </material>
+      </visual>
+    </link>
+  </model>
+</sdf>

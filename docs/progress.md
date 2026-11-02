@@ -166,3 +166,31 @@ Day 4: add the target platform scene and begin collecting the project's own trai
 - The next scene-variation step was discussed and the existing setup was inspected, but no additional scene assets or negative recordings were created before stopping.
 - Resume with the remaining scene variants and negative pilot, then close Day 4. Do not repeat the existing positive pilot simply to increase the image count.
 - Raw datasets, images and machine-specific diagnostics remain ignored by Git and stored in Ubuntu/local `reports/raw`; Git checkpoint contains source, tests and documentation only.
+
+## 2026-11-02 - Day 4 completed: scene variants and negatives
+
+### Scope and decisions
+
+- The developer asked the assistant to do the remaining Day 4 data work directly and to move on to Day 5. The work was done in the Ubuntu checkout with Claude Code.
+- `scripts/start_sim.sh` selects a world with `ALIGN_WORLD` (commit `aaaf148`).
+- Ruling: collect simulation data with a scripted downward camera instead of manual flights. It replicates the gimbal camera's 640 x 480 image and 2.0 rad FOV, places the camera and objects with `set_pose_vector`, and runs in a separate Gazebo partition. Flight images remain the reference for the real gimbal view.
+- Ruling: a second platform appearance (`blue_ring_v1`) with the same 2 x 2 m size; no size variation.
+- Ruling: ground/light combinations are generated from `scene_variants.json` (4 x 3 = 12 worlds) instead of hand-copied world files. The untracked `platform_world_ground2.sdf`, still identical to the base world, was removed and replaced by `platform_world_sand_*`.
+
+### Implemented and verified
+
+- Models: `delivery_platform_blue`, `distractor_crate`, `distractor_dark_mat`, `distractor_hazard_stripes`, `distractor_orange_barrel`. All are included in every world at parking positions 40 m away from the origin, so the flight view of the base world is unchanged.
+- `scripts/make_scene_worlds.py` generated 11 worlds; all 12 worlds and 6 models pass `gz sdf -k`.
+- `scene_capture.py` writes the existing manifest columns through `write_record` and a per-session `capture_poses.csv`. It passes `ament_flake8` and `ament_pep257`. Package tests: 6 passed, 1 skipped; the only failure is the earlier `camera_viewer.py` flake8 failure.
+- Pilot: 12 sessions, one per world, 60 images (24 positive, 36 negative), audited for file/manifest/pose consistency and visually reviewed. See [variant pilot report](../reports/variant_pilot_2026-11-02.md).
+- Fixed during the pilot: an over-strict uniform-image guard rejected a valid empty-ground negative; empty negatives were capped at one per session after a pixel-identical pair appeared.
+
+### Limits
+
+- Scripted images are ideal nadir views without gimbal tilt, drone parts or motion blur. Grounds are flat colors without textures.
+- `sun_default_v1` over-brightens light grounds.
+- No labels, splits or trained model yet.
+
+### Next
+
+Day 5: define 12 scene groups (world + platform appearance + seed), capture 5/8/10 m sessions with `scene_capture.py`, then fix the scene-based train/val/test split.

@@ -608,11 +608,13 @@ source install/setup.bash
 
 **25 Ekim durumu:** Platform ve kayıt altyapısı doğrulandı; 5, 8 ve 10 metre oturumlarında 141 PNG ve eşleşen CSV satırları kontrol edildi. [Denetim raporu](../reports/recording_audit_2026-10-25.md). Görünüm/zemin/ışık çeşitleri ve platform olmayan negatif kayıtlar tamamlanana kadar Gün 4 açık kalır.
 
+**2 Kasım durumu:** Gün 4 tamamlandı. İkinci platform görünümü, 4 zemin × 3 ışık = 12 dünya, dört dikkat dağıtıcı ve otomatik çekim aracı eklendi; 12 dünyada 60 görüntülük pozitif/negatif pilot denetlendi. [Sahne çeşitleri](day-04-variants.md), [pilot raporu](../reports/variant_pilot_2026-11-02.md).
+
 ### Adımlar
 
 - [x] Basit, yaklaşık 2 × 2 metre, yere yakın bir teslimat platformu oluştur. Kutu merkezinin platformun fiziksel merkezine yaklaşık karşılık gelmesini sağlayan simetrik geometri kullan.
-- [ ] Aynı nesnenin 2–3 doku/işaret varyantını hazırla. İlk sürümde rastgele onlarca model indirme; birkaç kontrollü varyant yeterli.
-- [ ] Zemin için 3–4 basit malzeme, ortam için birkaç ışık/yön seçeneği hazırla. Birkaç platform olmayan kutu veya desen de ekle.
+- [x] Aynı nesnenin 2–3 doku/işaret varyantını hazırla. İlk sürümde rastgele onlarca model indirme; birkaç kontrollü varyant yeterli.
+- [x] Zemin için 3–4 basit malzeme, ortam için birkaç ışık/yön seçeneği hazırla. Birkaç platform olmayan kutu veya desen de ekle.
 - [x] `dataset_card.md` içine sınıfı tanımla: “Yere yerleştirilmiş teslimat platformunun dış fiziksel sınırı.” Yalnızca üzerindeki sembol etiketlenmeyecek.
 - [x] `dataset_recorder` düğümünü yaz. Parametreleri `output_dir`, `scene_id`, `session_id`, `save_interval_s` olsun. İlk kayıt aralığı 0,5–1 saniye.
 - [x] Her görüntüyle birlikte `manifest.csv` satırı üret. Alanlar:
@@ -628,7 +630,7 @@ image_id,scene_id,session_id,image_path,source_stamp_ns,width,height,platform_va
 ### Doğrulama ve kabul
 
 - [x] Drone sabitken arka arkaya kaydedilen görüntülerin neredeyse aynı olduğunu gözle gör; bunları çeşitlilik sanma.
-- [ ] Platform yokken de kayıt al. Negatifler gerçek simülasyon sahneleri olsun.
+- [x] Platform yokken de kayıt al. Negatifler gerçek simülasyon sahneleri olsun.
 - [x] Bir komutla kayıt başlıyor; görüntü ve manifest eşleşiyor; platformun etiket sınırı yazılı.
 
 **Takılırsan:** Önce tek zemin/tek platformla kayıt aracını bitir. Dekorasyon için günün tamamını harcama.

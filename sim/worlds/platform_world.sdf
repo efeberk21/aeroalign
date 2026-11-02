@@ -97,5 +97,31 @@
       <uri>model://delivery_platform</uri>
       <pose>1 0 0 0 0 0</pose>
     </include>
+
+    <!-- Parked far outside the camera view (|x|, |y| > 30 m); move with set_pose. -->
+    <include>
+      <uri>model://delivery_platform_blue</uri>
+      <pose>-40 40 0 0 0 0</pose>
+    </include>
+
+    <include>
+      <uri>model://distractor_crate</uri>
+      <pose>-35 40 0 0 0 0</pose>
+    </include>
+
+    <include>
+      <uri>model://distractor_dark_mat</uri>
+      <pose>-30 40 0 0 0 0</pose>
+    </include>
+
+    <include>
+      <uri>model://distractor_hazard_stripes</uri>
+      <pose>-25 40 0 0 0 0</pose>
+    </include>
+
+    <include>
+      <uri>model://distractor_orange_barrel</uri>
+      <pose>-20 40 0 0 0 0</pose>
+    </include>
   </world>
 </sdf>

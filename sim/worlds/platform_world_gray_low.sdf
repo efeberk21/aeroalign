@@ -1,0 +1,122 @@
+<?xml version="1.0" ?>
+<!-- Generated from platform_world.sdf by scripts/make_scene_worlds.py (matte_gray_v1, sun_low_v1). Do not edit by hand. -->
+<sdf version="1.9">
+  <world name="iris_runway">
+    <physics name="1ms" type="ignore">
+      <max_step_size>0.001</max_step_size>
+      <real_time_factor>1.0</real_time_factor>
+    </physics>
+
+    <plugin filename="gz-sim-physics-system" name="gz::sim::systems::Physics">
+    </plugin>
+
+    <plugin filename="gz-sim-sensors-system" name="gz::sim::systems::Sensors">
+      <render_engine>ogre</render_engine>
+    </plugin>
+
+    <plugin filename="gz-sim-user-commands-system" name="gz::sim::systems::UserCommands">
+    </plugin>
+
+    <plugin filename="gz-sim-scene-broadcaster-system" name="gz::sim::systems::SceneBroadcaster">
+    </plugin>
+
+    <plugin filename="gz-sim-imu-system" name="gz::sim::systems::Imu">
+    </plugin>
+
+    <plugin filename="gz-sim-navsat-system" name="gz::sim::systems::NavSat">
+    </plugin>
+
+    <scene>
+      <ambient>0.55 0.55 0.6</ambient>
+      <background>0.8 0.8 0.8</background>
+    </scene>
+
+    <spherical_coordinates>
+      <latitude_deg>-35.363262</latitude_deg>
+      <longitude_deg>149.165237</longitude_deg>
+      <elevation>584</elevation>
+      <heading_deg>0</heading_deg>
+      <surface_model>EARTH_WGS84</surface_model>
+    </spherical_coordinates>
+
+    <light type="directional" name="sun">
+      <cast_shadows>true</cast_shadows>
+      <pose>0 0 10 0 0 0</pose>
+      <diffuse>0.95 0.82 0.65 1</diffuse>
+      <specular>0.95 0.82 0.65 1</specular>
+      <attenuation>
+        <range>1000</range>
+        <constant>0.9</constant>
+        <linear>0.01</linear>
+        <quadratic>0.001</quadratic>
+      </attenuation>
+      <direction>-0.85 0.35 -0.4</direction>
+    </light>
+    <model name="axes">
+      <static>1</static>
+      <link name="link">
+        <sensor name="navsat_sensor" type="navsat">
+          <always_on>1</always_on>
+          <update_rate>1</update_rate>
+        </sensor>
+      </link>
+    </model>
+
+    <model name="ground_plane">
+      <static>true</static>
+      <link name="ground_link">
+        <collision name="ground_collision">
+          <geometry>
+            <plane><normal>0 0 1</normal><size>100 100</size></plane>
+          </geometry>
+        </collision>
+        <visual name="ground_visual">
+          <geometry>
+            <plane><normal>0 0 1</normal><size>100 100</size></plane>
+          </geometry>
+          <material>
+            <ambient>0.38 0.40 0.39 1</ambient>
+            <diffuse>0.38 0.40 0.39 1</diffuse>
+            <specular>0.01 0.01 0.01 1</specular>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <include>
+      <uri>model://iris_with_gimbal</uri>
+      <pose degrees="true">0 0 0.195 0 0 90</pose>
+    </include>
+
+    <include>
+      <uri>model://delivery_platform</uri>
+      <pose>1 0 0 0 0 0</pose>
+    </include>
+
+    <!-- Parked far outside the camera view (|x|, |y| > 30 m); move with set_pose. -->
+    <include>
+      <uri>model://delivery_platform_blue</uri>
+      <pose>-40 40 0 0 0 0</pose>
+    </include>
+
+    <include>
+      <uri>model://distractor_crate</uri>
+      <pose>-35 40 0 0 0 0</pose>
+    </include>
+
+    <include>
+      <uri>model://distractor_dark_mat</uri>
+      <pose>-30 40 0 0 0 0</pose>
+    </include>
+
+    <include>
+      <uri>model://distractor_hazard_stripes</uri>
+      <pose>-25 40 0 0 0 0</pose>
+    </include>
+
+    <include>
+      <uri>model://distractor_orange_barrel</uri>
+      <pose>-20 40 0 0 0 0</pose>
+    </include>
+  </world>
+</sdf>

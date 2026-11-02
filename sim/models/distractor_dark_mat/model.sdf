@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<sdf version="1.9">
+  <model name="distractor_dark_mat">
+    <static>true</static>
+
+    <link name="mat_link">
+      <pose>0 0 0.01 0 0 0</pose>
+
+      <collision name="mat_collision">
+        <geometry>
+          <box><size>2 2 0.02</size></box>
+        </geometry>
+      </collision>
+
+      <visual name="mat_body">
+        <geometry>
+          <box><size>2 2 0.02</size></box>
+        </geometry>
+        <material>
+          <ambient>0.10 0.11 0.12 1</ambient>
+          <diffuse>0.10 0.11 0.12 1</diffuse>
+          <specular>0.02 0.02 0.02 1</specular>
+        </material>
+      </visual>
+    </link>
+  </model>
+</sdf>

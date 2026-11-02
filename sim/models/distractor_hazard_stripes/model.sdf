@@ -1,0 +1,88 @@
+<?xml version="1.0"?>
+<sdf version="1.9">
+  <model name="distractor_hazard_stripes">
+    <static>true</static>
+
+    <link name="stripes_link">
+      <collision name="stripes_collision">
+        <pose>0 0 0.01 0 0 0</pose>
+        <geometry>
+          <box><size>3 1 0.02</size></box>
+        </geometry>
+      </collision>
+
+      <visual name="stripe_0">
+        <pose>-1.25 0 0.01 0 0 0</pose>
+        <cast_shadows>false</cast_shadows>
+        <geometry>
+          <box><size>0.5 1 0.02</size></box>
+        </geometry>
+        <material>
+          <ambient>0.95 0.78 0.05 1</ambient>
+          <diffuse>0.95 0.78 0.05 1</diffuse>
+          <specular>0.02 0.02 0.02 1</specular>
+        </material>
+      </visual>
+      <visual name="stripe_1">
+        <pose>-0.75 0 0.01 0 0 0</pose>
+        <cast_shadows>false</cast_shadows>
+        <geometry>
+          <box><size>0.5 1 0.02</size></box>
+        </geometry>
+        <material>
+          <ambient>0.06 0.06 0.06 1</ambient>
+          <diffuse>0.06 0.06 0.06 1</diffuse>
+          <specular>0.02 0.02 0.02 1</specular>
+        </material>
+      </visual>
+      <visual name="stripe_2">
+        <pose>-0.25 0 0.01 0 0 0</pose>
+        <cast_shadows>false</cast_shadows>
+        <geometry>
+          <box><size>0.5 1 0.02</size></box>
+        </geometry>
+        <material>
+          <ambient>0.95 0.78 0.05 1</ambient>
+          <diffuse>0.95 0.78 0.05 1</diffuse>
+          <specular>0.02 0.02 0.02 1</specular>
+        </material>
+      </visual>
+      <visual name="stripe_3">
+        <pose>0.25 0 0.01 0 0 0</pose>
+        <cast_shadows>false</cast_shadows>
+        <geometry>
+          <box><size>0.5 1 0.02</size></box>
+        </geometry>
+        <material>
+          <ambient>0.06 0.06 0.06 1</ambient>
+          <diffuse>0.06 0.06 0.06 1</diffuse>
+          <specular>0.02 0.02 0.02 1</specular>
+        </material>
+      </visual>
+      <visual name="stripe_4">
+        <pose>0.75 0 0.01 0 0 0</pose>
+        <cast_shadows>false</cast_shadows>
+        <geometry>
+          <box><size>0.5 1 0.02</size></box>
+        </geometry>
+        <material>
+          <ambient>0.95 0.78 0.05 1</ambient>
+          <diffuse>0.95 0.78 0.05 1</diffuse>
+          <specular>0.02 0.02 0.02 1</specular>
+        </material>
+      </visual>
+      <visual name="stripe_5">
+        <pose>1.25 0 0.01 0 0 0</pose>
+        <cast_shadows>false</cast_shadows>
+        <geometry>
+          <box><size>0.5 1 0.02</size></box>
+        </geometry>
+        <material>
+          <ambient>0.06 0.06 0.06 1</ambient>
+          <diffuse>0.06 0.06 0.06 1</diffuse>
+          <specular>0.02 0.02 0.02 1</specular>
+        </material>
+      </visual>
+    </link>
+  </model>
+</sdf>

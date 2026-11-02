@@ -1,0 +1,21 @@
+{
+  "version": "platform_v1",
+  "decided": "2026-11-02",
+  "capture": {"heights_m": [5.0, 8.0, 10.0], "positives": 12, "negatives": 3},
+  "scenes": [
+    {"scene_id": "sim01", "world": "platform_world", "platform": "orange", "seed": 501, "split": "train"},
+    {"scene_id": "sim02", "world": "platform_world_gray_low", "platform": "blue", "seed": 502, "split": "train"},
+    {"scene_id": "sim03", "world": "platform_world_gray_dim", "platform": "orange", "seed": 503, "split": "test"},
+    {"scene_id": "sim04", "world": "platform_world_sand_default", "platform": "blue", "seed": 504, "split": "train"},
+    {"scene_id": "sim05", "world": "platform_world_sand_low", "platform": "orange", "seed": 505, "split": "train"},
+    {"scene_id": "sim06", "world": "platform_world_sand_dim", "platform": "blue", "seed": 506, "split": "val"},
+    {"scene_id": "sim07", "world": "platform_world_asphalt_default", "platform": "orange", "seed": 507, "split": "train"},
+    {"scene_id": "sim08", "world": "platform_world_asphalt_low", "platform": "blue", "seed": 508, "split": "test"},
+    {"scene_id": "sim09", "world": "platform_world_asphalt_dim", "platform": "orange", "seed": 509, "split": "train"},
+    {"scene_id": "sim10", "world": "platform_world_grass_default", "platform": "blue", "seed": 510, "split": "train"},
+    {"scene_id": "sim11", "world": "platform_world_grass_low", "platform": "orange", "seed": 511, "split": "val"},
+    {"scene_id": "sim12", "world": "platform_world_grass_dim", "platform": "blue", "seed": 512, "split": "train"}
+  ],
+  "flight_eval": {"scene_id": "scene01", "split": "flight_eval"},
+  "excluded": ["recorder_check", "recorder_csv_check", "pilot04_*"]
+}

@@ -58,3 +58,5 @@ Sahne grupları 2–3 platform görünümü, 3–4 zemin ve farklı ışık/göl
 ## Mevcut durum
 
 CSV'li tam kaynak dosyada dosya eşleşmesi/hata durumları beş testle doğrulandı. Kullanıcının Ubuntu'da topladığı 141 görüntülük 5/8/10 metre pilotu da [canlı kayıt denetiminden](../reports/recording_audit_2026-10-25.md) geçti. Her oturum kendi manifestini tutar; `image_path` o manifestin klasörüne göredir. Parametreler ve komutlar [kayıt kılavuzunda](day-04-recording.md). Sahne çeşitleri, negatif örnekler, etiketleme ve eğitilmiş model değerlendirmesi henüz tamamlanmadı.
+
+2 Kasım güncellemesi: Gün 4 sahne çeşitleri ve Gün 5 toplaması tamamlandı. İlk sürüm `platform_v1`: 533 simülasyon görüntüsü, sahne bazlı 357/88/88 ayrım ve ayrı 141 görüntülük `flight_eval`. Ayrıntılar [Gün 5 veri kümesi](day-05-dataset.md) belgesinde. Etiketleme ve eğitim henüz yapılmadı.

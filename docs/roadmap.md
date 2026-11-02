@@ -644,6 +644,8 @@ image_id,scene_id,session_id,image_path,source_stamp_ns,width,height,platform_va
 
 **Öğreneceğin:** Negatif örnek, dağılım çeşitliliği, sekans/sahne bazlı ayrım.
 
+**2 Kasım durumu:** Gün 5 tamamlandı. 12 sahne `scene_capture.py` ile çekildi; 533 simülasyon görüntüsü sahne bazında 357/88/88 train/val/test olarak ayrıldı, 141 uçuş görüntüsü ayrı `flight_eval` kümesinde. Ayrıntılar: [Gün 5 veri kümesi](day-05-dataset.md).
+
 ### Başlangıç toplama planı
 
 Yaklaşık **12 ayrı sahne grubunda, üç yüksekliğin her birinde 15'er kullanılabilir görüntü**, toplam **540 görüntü** hedefle. Bu bir yeterlilik garantisi değil; küçük proje için başlangıç bütçesidir. Birbirine çok benzeyen kareleri ele; daha az ama daha çeşitli veri daha yararlı olabilir. Yükseklik, kamera ve bölme kararları [güncel veri toplama planındadır](dataset-collection-plan.md).
@@ -660,15 +662,15 @@ Yaklaşık **12 ayrı sahne grubunda, üç yüksekliğin her birinde 15'er kulla
 
 ### Adımlar
 
-- [ ] Çekime başlamadan 12 grubun kimliğini ve koşulunu yaz.
-- [ ] Her grupta drone'u birkaç farklı konuma getir. Yalnızca kayıt frekansını artırarak görüntü sayısını doldurma.
-- [ ] Veri kümesinin yaklaşık %20–25'ini platform olmayan görüntülerden oluştur.
-- [ ] İlk görevde ağır kapanma çözülmeyeceği için platformun çoğunlukla görünür olduğu örnekleri ağırlıkta tut.
-- [ ] Grupları baştan ayır: 8 grup eğitim, 2 grup doğrulama, 2 grup son test. Yaklaşık 360/90/90 görüntü oluşur. Bir sahnenin bütün yükseklik oturumları aynı kümede kalır.
-- [ ] Aynı sahnenin ardışık görüntülerini farklı kümelere dağıtma. Aynı sahnenin yalnızca yeni oturum adıyla tekrarını da farklı kümeye koyma.
-- [ ] `split_manifest.csv` içine `image_id,scene_id,session_id,split` yaz. Ayırma kararını eğitimden önce sabitle.
-- [ ] Eğitime benzer ama aynı olmayan koşullarda doğrulama/test sahneleri hazırla. Modelin desteklemediği yepyeni nesne türünü tek test koşulu yapma.
-- [ ] Bozuk görüntü, tekrarlı kare ve boş manifest alanlarını temizle. Ham verinin kopyasını koru.
+- [x] Çekime başlamadan 12 grubun kimliğini ve koşulunu yaz.
+- [x] Her grupta drone'u birkaç farklı konuma getir. Yalnızca kayıt frekansını artırarak görüntü sayısını doldurma.
+- [x] Veri kümesinin yaklaşık %20–25'ini platform olmayan görüntülerden oluştur.
+- [x] İlk görevde ağır kapanma çözülmeyeceği için platformun çoğunlukla görünür olduğu örnekleri ağırlıkta tut.
+- [x] Grupları baştan ayır: 8 grup eğitim, 2 grup doğrulama, 2 grup son test. Yaklaşık 360/90/90 görüntü oluşur. Bir sahnenin bütün yükseklik oturumları aynı kümede kalır.
+- [x] Aynı sahnenin ardışık görüntülerini farklı kümelere dağıtma. Aynı sahnenin yalnızca yeni oturum adıyla tekrarını da farklı kümeye koyma.
+- [x] `split_manifest.csv` içine `image_id,scene_id,session_id,split` yaz. Ayırma kararını eğitimden önce sabitle.
+- [x] Eğitime benzer ama aynı olmayan koşullarda doğrulama/test sahneleri hazırla. Modelin desteklemediği yepyeni nesne türünü tek test koşulu yapma.
+- [x] Bozuk görüntü, tekrarlı kare ve boş manifest alanlarını temizle. Ham verinin kopyasını koru.
 
 **Gün sonu kabulü:** Yaklaşık 540 kullanılabilir görüntü veya daha az kullanma gerekçesi; üç yükseklikte örnekler; negatif örnekler; sahne bazında sabit train/val/test ayrımı.
 

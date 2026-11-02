@@ -194,3 +194,30 @@ Day 4: add the target platform scene and begin collecting the project's own trai
 ### Next
 
 Day 5: define 12 scene groups (world + platform appearance + seed), capture 5/8/10 m sessions with `scene_capture.py`, then fix the scene-based train/val/test split.
+
+## 2026-11-02 - Day 5 completed: platform_v1 dataset
+
+### Scope and decisions
+
+- The developer asked the assistant to complete Day 5 data collection as well; Day 6 labeling will be done together.
+- Ruling: twelve scene groups `sim01`-`sim12`, one per ground/light world, platform appearance alternating, fixed seeds 501-512. New IDs avoid the flight pilot's `scene01`.
+- Ruling: split by scene: val `sim06` (sand/dim/blue) and `sim11` (grass/low/orange), test `sim03` (gray/dim/orange) and `sim08` (asphalt/low/blue). Each val/test scene's ground+light pair never appears in train; both platform appearances are in every split.
+- Ruling: the 141 flight images are a separate `flight_eval` set for the real gimbal view, not training data.
+- The definition is versioned as `platform_v1` in `configs/dataset_v1.json`.
+
+### Implemented and verified
+
+- Captured 36 sessions (12 scenes x 5/8/10 m, 12 positive + 3 negative each) with `scene_capture.py`.
+- `scripts/build_split.py` checks every session (manifest/PNG match, decode, size, timestamps, required fields, one session per height). It drops exact duplicate PNGs, writes `split_manifest.csv` and `summary.json`, refuses to overwrite an existing split, and optionally writes a raw backup.
+- Result: 533 simulation images (train 357, val 88, test 88; 101 negatives, 19%) plus 141 `flight_eval`. Seven dropped duplicates were empty-ground negatives repeated across heights. No scene appears in more than one split. The backup contains all 681 PNGs.
+- Contact sheets of train, val and test sessions were reviewed; evidence is in ignored `reports/raw/day05_platform_v1/`.
+
+### Limits
+
+- Simulation images use the ideal nadir camera; the domain gap to flight images is measured only through `flight_eval`.
+- On dark asphalt the platform's dark rim is low-contrast. Partial edge positives exist and need clipped labels.
+- No labels or trained model yet.
+
+### Next
+
+Day 6, together with the developer: produce YOLO labels (possibly computed from `capture_poses.csv` and then checked visually), label the flight images, and validate the labels.

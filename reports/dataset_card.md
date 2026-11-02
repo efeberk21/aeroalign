@@ -39,3 +39,11 @@ The CSV recorder was validated on the Ubuntu pilot. Each session has its own `ma
 - Negative images use `platform_variant=none`.
 - Images from `scene_capture.py` use `camera_profile=rig_nadir_640x480_hfov2`: an ideal downward camera with the flight camera's resolution and FOV, at an exact height, without the drone. Their `capture_poses.csv` records camera, platform and distractor poses. Flight images keep `iris_wide_640x480_hfov2_zoom1`.
 - The 60-image `pilot04_*` set is a scene/tooling check; see the [variant pilot report](variant_pilot_2026-11-02.md). Labels and splits are still pending.
+
+## Version platform_v1 (2026-11-02)
+
+- Definition: `configs/dataset_v1.json`. Twelve scripted-camera scene groups `sim01`-`sim12`, one per ground/light world, with alternating platform appearance. Scene-based split: 8 train, 2 val (`sim06`, `sim11`), 2 test (`sim03`, `sim08`).
+- 533 simulation images after removing 7 exact duplicates: train 357 (288 positive / 69 negative), val 88 (72/16), test 88 (72/16). All three heights are present in every split.
+- The 141 flight images (`scene01`) form a separate `flight_eval` set with the real gimbal camera; positives only; not used for training.
+- Split file: `datasets/platform/platform_v1/split_manifest.csv`; the split is fixed before training. Raw backup: `datasets/backups/platform_v1_raw.tar.gz`. See [Day 5 dataset](../docs/day-05-dataset.md).
+- Labels are still pending (Day 6).
